@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stepmania - Play</title>
+    <title>Lista de Música</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyplay">
@@ -11,79 +11,8 @@
     <!-- Contenedor exclusivo para la playlist -->
     <div id="playlist-container">
         <section id="play-song-list">
-            <!-- Aquí se añadirán las canciones desde el archivo JSON -->
-        </section>
-    </div>
-
-    <div class="center-container">
-        <button onclick="window.location.href='afegir.html'">Añadir canciones</button>
-    </div>
-
-    <div id="dynamic-playlist-container">
-        <section id="dynamic-play-song-list">
-            <!-- Aquí se añadirán las canciones dinámicamente desde el archivo JSON -->
-        </section>
-    </div>
-
-    <script>
-        // Cargar el archivo JSON de canciones
-        fetch('canciones.json')
-            .then(response => response.json())
-            .then(canciones => {
-                const songList = document.getElementById('dynamic-play-song-list');
-
-                canciones.forEach(cancion => {
-                    // Crear el elemento para cada canción
-                    const songItem = document.createElement('div');
-                    songItem.classList.add('play-song-item');
-
-                    // Imagen de la carátula
-                    const img = document.createElement('img');
-                    img.src = cancion.archivoCaratula;
-                    img.alt = `Carátula de ${cancion.titulo}`;
-                    img.classList.add('song-img');
-                    
-                    // Información de la canción
-                    const songInfo = document.createElement('div');
-                    songInfo.classList.add('play-song-info');
-                    songInfo.innerHTML = `
-                        <h2>${cancion.titulo}</h2>
-                        <p>${cancion.artista}</p>
-                        <audio controls>
-                            <source src="${cancion.archivoMusica}" type="audio/mpeg">
-                            Tu navegador no soporta el elemento de audio.
-                        </audio>
-                    `;
-
-                    // Añadir la imagen y la información al contenedor de la canción
-                    songItem.appendChild(img);
-                    songItem.appendChild(songInfo);
-
-                    // Añadir la canción al contenedor de la lista de reproducción
-                    songList.appendChild(songItem);
-                });
-            })
-            .catch(error => console.error('Error cargando las canciones:', error));
-    </script>
-
-</body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Música</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body class="bodyplay">
-
-    <!-- Contenedor exclusivo para la playlist -->
-    <!-- <div id="playlist-container">
-        <section id="play-song-list">
             <!-- Ejemplo de canción 1 -->
-            <!-- <div class="play-song-item">
+            <div class="play-song-item">
                 <img src="imagen1.jpg" alt="Imagen de la canción 1" class="song-img">
                 <div class="play-song-info">
                     <h2>Paint The Town Blue</h2>
@@ -98,10 +27,10 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Ejemplo de canción 2 -->
-            <!-- <div class="play-song-item">
+            <div class="play-song-item">
                 <img src="imagen2.jpg" alt="Imagen de la canción 2" class="song-img">
                 <div class="play-song-info">
                     <h2>HULA HOOP (Cut Ver.)</h2>
@@ -116,10 +45,10 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Ejemplo de canción 3 -->
-            <!-- <div class="play-song-item">
+            <div class="play-song-item">
                 <img src="imagen3.jpg" alt="Imagen de la canción 3" class="song-img">
                 <div class="play-song-info">
                     <h2>Decided (TV Size)</h2>
@@ -133,10 +62,10 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Ejemplo de canción 4 -->
-            <!-- <div class="play-song-item">
+            <div class="play-song-item">
                 <img src="imagen4.jpg" alt="Imagen de la canción 4" class="song-img">
                 <div class="play-song-info">
                     <h2>The Emptiness Machine (Cut Ver.)</h2>
@@ -152,8 +81,8 @@
                 </div>
             </div>  
         </section>
-    </div> -->
+    </div>
 
-        <!-- <script src="js/script.js"></script>
-    </body>
-    </html> --> --> -->
+    <script src="js/script.js"></script>
+</body>
+</html>     

@@ -355,9 +355,9 @@ textarea {
 }
 
 /* Estilo para los campos de archivo */
-input[type="file"] {
+/* input[type="file"] {
     display: none; /* Ocultar el campo real */
-}
+/* }  */
 
 .custom-file-label {
     display: inline-block;
