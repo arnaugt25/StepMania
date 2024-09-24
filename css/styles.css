@@ -32,6 +32,9 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url('img/gif.gif');
+    background-size: cover;
+    background-position: center;
 }
 
 header {
@@ -310,7 +313,7 @@ button:hover {
 }
 
 .form-container {
-    background-color: white;
+    background-color: rgba(43, 43, 43, 0.9);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -319,27 +322,27 @@ button:hover {
     margin-top: 50px;
 }
 
+/* Título del formulario */
 h1 {
     text-align: center;
-    color: #333;
+    color: white;
     margin-bottom: 20px;
 }
 
-/* Estilos de los labels y campos de entrada */
+/* Estilos para los labels y campos de texto */
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #333;
+    color: white;
 }
 
 input[type="text"],
-input[type="file"],
 textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     box-sizing: border-box;
@@ -347,9 +350,40 @@ textarea {
 
 textarea {
     resize: vertical;
+    background-color: #333;
+    color: #fff;
 }
 
-/* Estilo del botón de envío */
+/* Estilo para los campos de archivo */
+input[type="file"] {
+    display: none; /* Ocultar el campo real */
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.custom-file-label:hover {
+    background-color: #0056b3;
+}
+
+/* Para mostrar el nombre del archivo seleccionado */
+.file-selected {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Estilo para el botón de envío */
 button[type="submit"] {
     width: 100%;
     padding: 15px;
@@ -366,7 +400,7 @@ button[type="submit"]:hover {
     background-color: #4cae4c;
 }
 
-/* Mensaje de éxito o error */
+/* Mensajes de error o éxito */
 #mensaje {
     text-align: center;
     margin-top: 20px;
@@ -374,7 +408,7 @@ button[type="submit"]:hover {
     color: red; /* Cambia a verde si es un mensaje de éxito */
 }
 
-/* Media query para pantallas más pequeñas */
+/* Responsivo para pantallas pequeñas */
 @media (max-width: 600px) {
     .form-container {
         padding: 20px;

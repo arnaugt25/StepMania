@@ -1,0 +1,8 @@
+[
+    {
+        "titulo": "Canción de ejemplo",
+        "artista": "Artista de ejemplo",
+        "archivoMusica": "uploads/ejemplo.mp3",
+        "archivoCaratula": "uploads/ejemplo.jpg"
+    }
+]
