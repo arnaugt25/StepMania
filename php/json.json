@@ -1,44 +1,8 @@
 [
     {
-        "titulo": "babyshark",
-        "artista": "arnau",
-        "archivoMusica": "uploads\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploads\/descarga.png"
-    },
-    {
-        "titulo": null,
-        "artista": null,
-        "archivoMusica": "uploads\/musica\/",
-        "archivoCaratula": "uploads\/caratula\/"
-    },
-    {
-        "titulo": "cabeza caca",
-        "artista": "arnau",
+        "titulo": "Lebron",
+        "artista": "Xavi",
         "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploads\/caratula\/descarga.png"
-    },
-    {
-        "titulo": "cabeza caca",
-        "artista": "arnau",
-        "archivoMusica": "uploadswwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploadsdescarga.png"
-    },
-    {
-        "titulo": "cabeza caca",
-        "artista": "arnau",
-        "archivoMusica": "uploadswwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploadsdescarga.png"
-    },
-    {
-        "titulo": "cabeza caca",
-        "artista": "arnau",
-        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploads\/caratula\/descarga.png"
-    },
-    {
-        "titulo": "babyshark",
-        "artista": "arnau",
-        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "uploads\/caratula\/descarga.png"
+        "archivoCaratula": "php\/uploads\/caratula\/descarga.png"
     }
 ]

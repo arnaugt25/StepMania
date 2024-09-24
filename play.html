@@ -50,85 +50,91 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Ejemplo de canción 3 -->
-            <div class="play-song-item">
-                <img src="imagen3.jpg" alt="Imagen de la canción 3" class="song-img">
-                <div class="play-song-info">
-                    <h2>Decided (TV Size)</h2>
-                    <p>de Dizzy Sunfist</p>
-                    <p class="mapper">mapeado por <strong>Fuxi66</strong></p>
-                    <div class="status">
-                        <span class="status-label">CLASIFICADO</span>
-                        <div class="difficulty">
-                            <span class="circle" style="background-color: red;"></span>
-                            <span class="circle" style="background-color: green;"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ejemplo de canción 4 -->
-            <div class="play-song-item">
-                <img src="imagen4.jpg" alt="Imagen de la canción 4" class="song-img">
-                <div class="play-song-info">
-                    <h2>The Emptiness Machine (Cut Ver.)</h2>
-                    <p>de Linkin Park</p>
-                    <p class="mapper">mapeado por <strong>Sotarks</strong></p>
-                    <div class="status">
-                        <span class="status-label">CLASIFICADO</span>
-                        <div class="difficulty">
-                            <span class="circle" style="background-color: pink;"></span>
-                            <span class="circle" style="background-color: orange;"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>  
         </section>
     </div>
     <div id="songList"></div>
 
     <script>
+        // Función para generar colores aleatorios
+        function getRandomColor() {
+            const colors = ['green', 'yellow', 'red', 'blue', 'purple', 'orange', 'pink'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    
+        // Función para generar un número aleatorio de círculos
+        function getRandomCircles() {
+            const circles = [];
+            const numCircles = Math.floor(Math.random() * 4) + 1;  // Genera entre 1 y 4 círculos
+            for (let i = 0; i < numCircles; i++) {
+                const circle = document.createElement('span');
+                circle.classList.add('circle');
+                circle.style.backgroundColor = getRandomColor();  // Asigna un color aleatorio
+                circles.push(circle);
+            }
+            return circles;
+        }
+    
         // Leer el archivo JSON y mostrar las canciones
-        fetch('json.json')
+        fetch('php/json.json')
             .then(response => response.json())
             .then(data => {
-                const songList = document.getElementById('songList');
+                const songList = document.getElementById('play-song-list');
     
                 data.forEach(cancion => {
-                    // Crear un contenedor para cada canción
+                    // Crear el contenedor principal con la clase adecuada
                     const songItem = document.createElement('div');
-                    songItem.classList.add('song-item');
+                    songItem.classList.add('play-song-item');  // Aplicar la clase CSS
     
-                    // Añadir la carátula
+                    // Añadir la imagen de la carátula con la clase adecuada
                     const caratula = document.createElement('img');
                     caratula.src = cancion.archivoCaratula;
                     caratula.alt = `Carátula de ${cancion.titulo}`;
-                    caratula.classList.add('caratula');
+                    caratula.classList.add('song-img');  // Aplicar la clase CSS
     
-                    // Añadir título y artista
+                    // Crear el contenedor de información de la canción
                     const songInfo = document.createElement('div');
-                    songInfo.innerHTML = `<h2>${cancion.titulo}</h2><p>${cancion.artista}</p>`;
+                    songInfo.classList.add('play-song-info');  // Aplicar la clase CSS
+                    songInfo.innerHTML = `
+                        <h2>${cancion.titulo}</h2>
+                        <p>de ${cancion.artista}</p>
+                        <p class="mapper">mapeado por <strong>${cancion.artista}</strong></p>
+                    `;
     
-                    // Añadir el reproductor de música
-                    const audio = document.createElement('audio');
-                    audio.controls = true;
-                    const source = document.createElement('source');
-                    source.src = cancion.archivoMusica;
-                    source.type = 'audio/mpeg';
-                    audio.appendChild(source);
+                    // Crear la sección de estado (status)
+                    const status = document.createElement('div');
+                    status.classList.add('status');  // Aplicar la clase CSS
     
-                    // Añadir todos los elementos al contenedor de la canción
+                    const statusLabel = document.createElement('span');
+                    statusLabel.classList.add('status-label');  // Aplicar la clase CSS
+                    statusLabel.innerText = 'CLASIFICADO';  // Ajusta esto según la lógica de tu aplicación
+    
+                    // Añadir los círculos de dificultad aleatorios
+                    const difficulty = document.createElement('div');
+                    difficulty.classList.add('difficulty');  // Aplicar la clase CSS
+    
+                    // Generar círculos aleatorios y agregarlos
+                    const circles = getRandomCircles();
+                    circles.forEach(circle => {
+                        difficulty.appendChild(circle);
+                    });
+    
+                    // Añadir la sección de dificultad y estado al contenedor de la canción
+                    status.appendChild(statusLabel);
+                    status.appendChild(difficulty);
+                    songInfo.appendChild(status);
+    
+                    // Añadir los elementos al contenedor principal
                     songItem.appendChild(caratula);
                     songItem.appendChild(songInfo);
-                    songItem.appendChild(audio);
     
-                    // Añadir la canción al listado de canciones
+                    // Añadir la nueva canción al listado
                     songList.appendChild(songItem);
                 });
-            });
+            })
+            .catch(error => console.error('Error al cargar el JSON:', error));
     </script>
     
+ 
     <script src="js/script.js"></script>
 </body>
 </html>     

@@ -255,16 +255,17 @@ button:hover {
     color: #fff;
 }
 
-.difficulty {
-    display: flex;
-    gap: 4px;
-}
-
 .circle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     display: inline-block;
+    margin-right: 5px;
+}
+
+.difficulty {
+    display: flex;
+    align-items: center;
 }
 
 

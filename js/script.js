@@ -78,3 +78,8 @@ function validarContenidoJuego(contenido) {
     // (e.g., verificar instantes inicial y final, número de elementos, valores no negativos, etc.)
     return true; // De momento, devuelve true para no bloquear el formulario
 }
+
+const caratula = document.createElement('img');
+caratula.src = cancion.archivoCaratula;  // Verifica que el archivo JSON tiene la ruta correcta
+caratula.alt = `Carátula de ${cancion.titulo}`;
+caratula.classList.add('song-img');  // Aplicar la clase CSS
