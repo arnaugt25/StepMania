@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyplay">
-
+    <nav></nav>
+        <ul>
+          <li><a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a></li>
+        </ul>
+      </nav>
     <!-- Contenedor exclusivo para la playlist -->
     <div id="playlist-container">
         <section id="play-song-list">
@@ -82,7 +86,49 @@
             </div>  
         </section>
     </div>
+    <div id="songList"></div>
 
+    <script>
+        // Leer el archivo JSON y mostrar las canciones
+        fetch('json.json')
+            .then(response => response.json())
+            .then(data => {
+                const songList = document.getElementById('songList');
+    
+                data.forEach(cancion => {
+                    // Crear un contenedor para cada canción
+                    const songItem = document.createElement('div');
+                    songItem.classList.add('song-item');
+    
+                    // Añadir la carátula
+                    const caratula = document.createElement('img');
+                    caratula.src = cancion.archivoCaratula;
+                    caratula.alt = `Carátula de ${cancion.titulo}`;
+                    caratula.classList.add('caratula');
+    
+                    // Añadir título y artista
+                    const songInfo = document.createElement('div');
+                    songInfo.innerHTML = `<h2>${cancion.titulo}</h2><p>${cancion.artista}</p>`;
+    
+                    // Añadir el reproductor de música
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    const source = document.createElement('source');
+                    source.src = cancion.archivoMusica;
+                    source.type = 'audio/mpeg';
+                    audio.appendChild(source);
+    
+                    // Añadir todos los elementos al contenedor de la canción
+                    songItem.appendChild(caratula);
+                    songItem.appendChild(songInfo);
+                    songItem.appendChild(audio);
+    
+                    // Añadir la canción al listado de canciones
+                    songList.appendChild(songItem);
+                });
+            });
+    </script>
+    
     <script src="js/script.js"></script>
 </body>
 </html>     
