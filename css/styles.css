@@ -1,9 +1,12 @@
+
 .bodymain {
     margin-left: 300px;
     background-image: url(img/gif.gif);
     background-repeat: no-repeat; 
     background-size: cover; 
-    background-position: center;    
+    background-position: center;
+    height: 100vh;   
+    overflow: hidden;
 }
 .bodyplay{
     background-image: url(img/gif.gif);
@@ -12,6 +15,7 @@
     background-position: center;
     justify-content: center;
     justify-items: center;
+    height: 100vh;  
 }
 
 /* Estilo para el contenedor de ranking */
@@ -21,6 +25,7 @@
     background-repeat: no-repeat; 
     background-size: cover; 
     background-position: center;  
+    height: 100vh;
 }
 
 .bodyafegir{
