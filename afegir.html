@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afegir una cançó</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="script.js"></script>
+</head>
+<body class="bodyafegir">
+
+    <div class="form-container">
+        <h1>Afegir una cançó</h1>
+
+        <form id="addSongForm" action="upload.php" method="POST" enctype="multipart/form-data" onsubmit="return validarFormulario()">
+            
+            <!-- Título de la canción -->
+            <label for="titulo">Títol de la cançó:</label>
+            <input type="text" id="titulo" name="titulo" required>
+            
+            <!-- Artista -->
+            <label for="artista">Artista:</label>
+            <input type="text" id="artista" name="artista" required>
+
+            <!-- Archivo de música -->
+            <label for="musica">Fitxer de música:</label>
+            <input type="file" id="musica" name="musica" accept="audio/*" required>
+
+            <!-- Archivo de carátula -->
+            <label for="caratula">Fitxer de caràtula:</label>
+            <input type="file" id="caratula" name="caratula" accept="image/*" required>
+
+            <!-- Archivo del juego -->
+            <label for="juego">Fitxer de joc (TXT):</label>
+            <input type="file" id="juego" name="juego" accept=".txt">
+
+            <!-- Textarea para crear el contenido del archivo -->
+            <label for="contenidoJuego">Crear joc en un Textarea:</label>
+            <textarea id="contenidoJuego" name="contenidoJuego" rows="10" cols="50"></textarea>
+
+            <!-- Botón de submit -->
+            <button type="submit">Afegir cançó</button>
+        </form>
+
+        <!-- Mensajes de error o éxito -->
+        <div id="mensaje"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
