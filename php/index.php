@@ -1,40 +1,62 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titulo = $_POST['titulo'];
-    $artista = $_POST['artista'];
+    
+    // Verificar que los campos del formulario estén presentes
+    $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : null;
+    $artista = isset($_POST['artista']) ? $_POST['artista'] : null;
 
-    // Directorios de subida
-    $musica_dir = 'uploads/musica/';
-    $caratula_dir = 'uploads/caratula/';
+    // Asegurarse de que se hayan enviado los archivos correctamente
+    if (isset($_FILES['musica']) && isset($_FILES['caratula'])) {
+        
+        // Directorios de subida
+        $musica_dir = 'uploads/musica/';
+        $caratula_dir = 'uploads/caratula/';
 
-    // Subir archivo de música
-    $musica_file = $musica_dir . basename($_FILES['musica']['name']);
-    move_uploaded_file($_FILES['musica']['tmp_name'], $musica_file);
+        // Verificar y crear los directorios si no existen
+        if (!is_dir($musica_dir)) {
+            mkdir($musica_dir, 0777, true);
+        }
+        if (!is_dir($caratula_dir)) {
+            mkdir($caratula_dir, 0777, true);
+        }
 
-    // Subir archivo de carátula
-    $caratula_file = $caratula_dir . basename($_FILES['caratula']['name']);
-    move_uploaded_file($_FILES['caratula']['tmp_name'], $caratula_file);
+        // Subir el archivo de música
+        $musica_file = $musica_dir . basename($_FILES['musica']['name']);
+        if (!move_uploaded_file($_FILES['musica']['tmp_name'], $musica_file)) {
+            echo "Error al subir el archivo de música.";
+            exit();
+        }
 
-    // Leer el archivo JSON existente
-    $json_file = 'json.json';
-    $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
+        // Subir el archivo de carátula
+        $caratula_file = $caratula_dir . basename($_FILES['caratula']['name']);
+        if (!move_uploaded_file($_FILES['caratula']['tmp_name'], $caratula_file)) {
+            echo "Error al subir el archivo de carátula.";
+            exit();
+        }
 
-    // Crear la nueva entrada de canción
-    $nueva_cancion = array(
-        'titulo' => $titulo,
-        'artista' => $artista,
-        'archivoMusica' => $musica_file,
-        'archivoCaratula' => $caratula_file
-    );
+        // Leer el archivo JSON existente
+        $json_file = 'json.json';
+        $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
-    // Añadir la nueva canción al array de canciones
-    array_push($canciones, $nueva_cancion);
+        // Crear la nueva entrada de canción
+        $nueva_cancion = array(
+            'titulo' => $titulo,
+            'artista' => $artista,
+            'archivoMusica' => $musica_file,
+            'archivoCaratula' => $caratula_file
+        );
 
-    // Guardar el archivo JSON actualizado
-    file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
+        // Añadir la nueva canción al array de canciones
+        array_push($canciones, $nueva_cancion);
 
-    // Redirigir a la página play.html
-    header('Location: play.html');
-    exit();
+        // Guardar el archivo JSON actualizado
+        file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
+
+        // Redirigir a la página play.html para ver la nueva canción
+        header('Location: ../play.html');
+        exit();
+    } else {
+        echo "No se han enviado los archivos correctamente.";
+    }
 }
 ?>
