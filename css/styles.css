@@ -85,6 +85,7 @@ nav a:hover {
     color: rgb(0, 0, 0);
 }
 
+
 .logo {
     margin-top: 15px;
     display: flex;
@@ -453,5 +454,5 @@ button[type="submit"]:hover {
 
 .titulolista{
     color: white;
-    font-size: 30px;
+    font-size: 0px;
 }

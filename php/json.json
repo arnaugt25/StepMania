@@ -1,14 +1,26 @@
 [
     {
-        "titulo": "Lebron",
-        "artista": "Xavi",
-        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat- Sped Up.mp3",
-        "archivoCaratula": "php\/uploads\/caratula\/descarga.png"
+        "titulo": "Can\u00e7o 2",
+        "artista": "arnau",
+        "descripcion": "3\r\n99 # 0.5 # 1.5\r\n97 # 2.0 # 2.2\r\n114 # 2.5 # 3.0\r\n",
+        "archivoMusica": "php\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
+        "archivoCaratula": "php\/uploads\/caratula\/descarga.png",
+        "archivoTexto": "php\/uploads\/text\/descripcion_66f43c8ccbea7.txt"
     },
     {
-        "titulo": "moncayo",
-        "artista": "kcxzgsfxdhgj",
+        "titulo": "Can\u00e7o 3",
+        "artista": "arnau",
+        "descripcion": "3\r\n99 # 0.5 # 1.5\r\n97 # 2.0 # 2.2\r\n114 # 2.5 # 3.0\r\n",
         "archivoMusica": "php\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "php\/uploads\/caratula\/descarga.png"
+        "archivoCaratula": "php\/uploads\/caratula\/descarga.png",
+        "archivoTexto": "uploads\/text\/descripcion_66f43cd6978d7.txt"
+    },
+    {
+        "titulo": "Can\u00e7o 4",
+        "artista": "Arnau",
+        "descripcion": "3\r\n99 # 0.5 # 1.5\r\n97 # 2.0 # 2.2\r\n114 # 2.5 # 3.0\r\n",
+        "archivoMusica": "php\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
+        "archivoCaratula": "php\/uploads\/caratula\/descarga.png",
+        "archivoTexto": "php\/uploads\/text\/descripcion_66f43fcc217a4.txt"
     }
 ]
