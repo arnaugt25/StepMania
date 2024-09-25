@@ -2,7 +2,13 @@
     {
         "titulo": "Lebron",
         "artista": "Xavi",
-        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
+        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat- Sped Up.mp3",
+        "archivoCaratula": "php\/uploads\/caratula\/descarga.png"
+    },
+    {
+        "titulo": "Lebron",
+        "artista": "Xavi",
+        "archivoMusica": "uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat- Sped Up.mp3",
         "archivoCaratula": "php\/uploads\/caratula\/descarga.png"
     }
 ]

@@ -204,6 +204,7 @@ button:hover {
 }
 
 .play-song-item {
+    position: relative; /* Necesario para que el botón se posicione respecto al contenedor */
     background-color: #3a3a3a;
     display: flex;
     align-items: center;
@@ -211,10 +212,30 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
 .play-song-item:hover {
     background-color: #4a4a4a;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    background-color: #ff4d4d;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #e60000;
 }
 
 .song-img {
