@@ -1,34 +1,38 @@
 
+/* Asegura que el fondo esté fijo y no se desplace */
 .bodymain {
     margin-left: 300px;
     background-image: url(img/gif.gif);
-    background-repeat: no-repeat; 
-    background-size: cover; 
+    background-repeat: no-repeat;
+    background-size: cover;
     background-position: center;
-    height: 100vh;   
+    background-attachment: fixed; /* Fondo fijo */
+    height: 100vh;
     overflow: hidden;
 }
-.bodyplay{
+
+.bodyplay {
     background-image: url(img/gif.gif);
-    background-repeat: no-repeat; 
-    background-size: cover; 
+    background-repeat: no-repeat;
+    background-size: cover;
     background-position: center;
+    background-attachment: fixed; /* Fondo fijo */
     justify-content: center;
     justify-items: center;
-    height: 100vh;  
+    min-height: 100vh; /* Asegura que la altura sea al menos la del viewport */
 }
 
-/* Estilo para el contenedor de ranking */
-.bodyranking{
+.bodyranking {
     margin-top: 150px;
     background-image: url(img/gif.gif);
-    background-repeat: no-repeat; 
-    background-size: cover; 
-    background-position: center;  
-    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Fondo fijo */
+    min-height: 100vh;
 }
 
-.bodyafegir{
+.bodyafegir {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -36,10 +40,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-image: url('img/gif.gif');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed; /* Fondo fijo */
+    min-height: 100vh;
 }
 
 header {

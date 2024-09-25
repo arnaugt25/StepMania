@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['musica']) && isset($_FILES['caratula'])) {
         
         // Directorios de subida
-        $musica_dir = 'uploads/musica/';
-        $caratula_dir = 'uploads/caratula/';
+        $musica_dir = 'php/uploads/musica/';
+        $caratula_dir = 'php/uploads/caratula/';;
 
         // Verificar y crear los directorios si no existen
         if (!is_dir($musica_dir)) {
@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Subir el archivo de carátula
-        $caratula_file = $caratula_dir . basename($_FILES['caratula']['name']);
-        if (!move_uploaded_file($_FILES['caratula']['tmp_name'], $caratula_file)) {
-            echo "Error al subir el archivo de carátula.";
-            exit();
-        }
+$caratula_file = $caratula_dir . basename($_FILES['caratula']['name']);
+if (!move_uploaded_file($_FILES['caratula']['tmp_name'], $caratula_file)) {
+    echo "Error al subir el archivo de carátula.";
+    exit();
+}   
 
         // Leer el archivo JSON existente
         $json_file = 'json.json';
