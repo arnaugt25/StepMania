@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Canciones</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bodyafegir">
+    <nav>
+        <ul>
+            <li><a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a></li>
+        </ul>
+    </nav>
+
+    <div class="form-container">
+        <h1>Seleccionar Canción para Editar</h1>
+
+        <!-- Seleccionar canción -->
+        <select id="selectSong" onchange="loadSongData()" required>
+            <option value="">-- Selecciona una canción --</option>
+        </select>
+
+        <!-- Formulario para editar la canción -->
+        <form id="editSongForm" action="php/editarCancion.php" method="post" enctype="multipart/form-data" style="display: none;">
+            <input type="hidden" id="songId" name="songId">
+
+            <!-- Título de la canción -->
+            <label for="titulo">Títol de la cançó:</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <!-- Artista -->
+            <label for="artista">Artista:</label>
+            <input type="text" id="artista" name="artista" required>
+
+            <!-- Archivo de música -->
+            <label for="musica">Selecciona un nuevo archivo de música (opcional)</label>
+            <input type="file" id="musica" name="musica" accept="audio/*">
+
+            <!-- Archivo de carátula -->
+            <label for="caratula">Selecciona una nueva carátula (opcional)</label>
+            <input type="file" id="caratula" name="caratula" accept="image/*">
+
+            <!-- Descripción -->
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion"></textarea>
+
+            <!-- Botón de submit -->
+            <button type="submit">Actualizar canción</button>
+        </form>
+    </div>
+
+    <script>
+        // Cargar las canciones desde el archivo JSON
+        fetch('php/json.json')
+            .then(response => response.json())
+            .then(data => {
+                const selectSong = document.getElementById('selectSong');
+                data.forEach((cancion, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = cancion.titulo;
+                    selectSong.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al cargar las canciones:', error));
+
+        // Cargar los datos de la canción seleccionada en el formulario
+        function loadSongData() {
+            const selectSong = document.getElementById('selectSong');
+            const selectedIndex = selectSong.value;
+            if (selectedIndex === "") return;
+
+            fetch('php/json.json')
+                .then(response => response.json())
+                .then(data => {
+                    const cancion = data[selectedIndex];
+                    document.getElementById('songId').value = selectedIndex; // Guardar el índice de la canción
+                    document.getElementById('titulo').value = cancion.titulo;
+                    document.getElementById('artista').value = cancion.artista;
+                    document.getElementById('descripcion').value = cancion.descripcion || '';
+                    
+                    // Mostrar el formulario
+                    document.getElementById('editSongForm').style.display = 'block';
+                })
+                .catch(error => console.error('Error al cargar los datos de la canción:', error));
+        }
+    </script>
+</body>
+</html>
