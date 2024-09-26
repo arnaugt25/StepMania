@@ -12,11 +12,11 @@
     </nav>
 
     <div class="form-container">
-        <h1>Editar una cançó</h1>
+        <h1>Edit Song</h1>
 
         <!-- Seleccionar canción -->
         <select id="selectSong" onchange="loadSongData()" required>
-            <option value="">-- Selecciona una canción --</option>
+            <option value="">-- Select a song --</option>
         </select>
 
         <!-- Formulario para editar la canción -->
@@ -24,31 +24,31 @@
             <input type="hidden" id="songId" name="songId">
 
             <!-- Título de la canción -->
-            <label for="titulo">Títol de la cançó:</label>
+            <label for="titulo">Song Title:</label>
             <input type="text" id="titulo" name="titulo" required>
 
             <!-- Artista -->
-            <label for="artista">Artista:</label>
+            <label for="artista">Artist:</label>
             <input type="text" id="artista" name="artista" required>
-
+        <div class="file-input-container">
             <!-- Archivo de música -->
-            <label for="musica" class="custom-file-label">Seleccionar música (opcional)</label>
+            <label for="musica" class="custom-file-label">Select music (optional)</label>
             <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
-            <span id="current-music" class="file-selected">No hay archivo de música actual</span> <!-- Aquí se mostrará la música actual -->
+            <span id="current-music" class="file-selected">No actual pic file</span> <!-- Aquí se mostrará la música actual -->
             <span id="selected-music" class="file-selected"></span> <!-- Aquí se mostrará el nuevo archivo si lo seleccionas -->
 
             <!-- Archivo de carátula -->
-            <label for="caratula" class="custom-file-label">Seleccionar carátula (opcional)</label>
+            <label for="caratula" class="custom-file-label">Select Picture (opcional)</label>
             <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
-            <span id="current-caratula" class="file-selected">No hay archivo de carátula actual</span> <!-- Aquí se mostrará la carátula actual -->
+            <span id="current-caratula" class="file-selected">No actual pic file</span> <!-- Aquí se mostrará la carátula actual -->
             <span id="selected-caratula" class="file-selected">o</span> <!-- Aquí se mostrará la nueva carátula si la seleccionas -->
-
+        </div>
             <!-- Descripción -->
-            <label for="descripcion">Descripción</label>
+            <label for="descripcion">Description</label>
             <textarea id="descripcion" name="descripcion"></textarea>
 
             <!-- Botón de submit -->
-            <button type="submit">Actualizar canción</button>
+            <button type="submit">Update Song</button>
         </form>
     </div>
 

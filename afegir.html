@@ -12,41 +12,41 @@
         
     </nav>
     <div class="form-container">
-        <h1>Afegir una cançó</h1>
+        <h1>Add song</h1>
 
         <form id="addSongForm" action="php/index.php" method="post" enctype="multipart/form-data">
             <!-- Título de la canción --> 
-            <label for="titulo">Títol de la cançó:</label>
+            <label for="titulo">Song title:</label>
             <input type="text" id="titulo" name="titulo" required>
             
             <!-- Artista -->
-            <label for="artista">Artista:</label>
+            <label for="artista">Artist:</label>
             <input type="text" id="artista" name="artista" required>
-
+        <div class="file-input-container">
             <!-- Archivo de música -->
             <!-- <label for="musica">Selecciona el fitxer de música</label> -->
             <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
-            <label for="musica" class="custom-file-label">Seleccionar música</label>
-            <span id="selected-music" class="file-selected">No hay archivo seleccionado</span>
+            <label for="musica" class="custom-file-label">Select music</label>
+            <span id="selected-music" class="file-selected">No file</span>
 
             <!-- Archivo de carátula -->
             <!-- <label for="caratula">Selecciona el fitxer de caràtula</label> -->
             <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
-            <label for="caratula" class="custom-file-label">Seleccionar carátula</label>
-            <span id="selected-caratula" class="file-selected">No hay archivo seleccionado</span>
+            <label for="caratula" class="custom-file-label">Select picture</label>
+            <span id="selected-caratula" class="file-selected">No file</span>
 
             <!-- Archivo de txt -->
             <!-- <label for="textFile">Selecciona el fitxer de txt</label> -->
             <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
-            <label for="textFile" class="custom-file-label">Seleccionar texto</label>
-            <span id="selected-txt" class="file-selected">No hay archivo seleccionado</span>
-
+            <label for="textFile" class="custom-file-label">Selext TXT</label>
+            <span id="selected-txt" class="file-selected">No file</span>
+        </div>
             <!-- Descripción -->
-            <label for="descripcion">Descripción</label>
+            <label for="descripcion">Description</label>
             <textarea id="descripcion" name="descripcion" placeholder="Escribe la descripción aquí..."></textarea>
 
             <!-- Botón de submit -->
-            <button type="submit">Afegir cançó</button>
+            <button type="submit">Add Song</button>
         </form>
     </div>
 
