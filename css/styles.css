@@ -33,7 +33,6 @@
 }
 
 .bodyafegir {
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -54,8 +53,32 @@ header {
     background-color: transparent;
 }
 
-nav {
-    font-family: sans-serif;
+.nav1 {
+    display: flex;
+    justify-content: space-between; /* Distribuir elementos: logo a la izquierda, título centrado */
+    align-items: center; /* Alinear verticalmente los elementos */
+    padding: 10px 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 1); /* Fondo para el nav, opcional */
+    z-index: 10;
+}
+.nav2 {
+    display: flex;
+    justify-content: space-between; /* Distribuir elementos: logo a la izquierda, título centrado */
+    align-items: center; /* Alinear verticalmente los elementos */
+    padding: 10px 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;  
+    z-index: 10;
+}
+
+.navplay {
     font-size: 90px;
     font-weight: 100;
     display: flex;
@@ -78,13 +101,16 @@ nav a {
     color: whitesmoke;
     font-weight: 1000;
 }
-
-nav a:hover {
+.tituloprincipal{
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: 1000;  
+}
+.tituloprincipal:hover{
     border-radius: 20px;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }
-
 
 .logo {
     margin-top: 15px;
@@ -136,7 +162,6 @@ button:hover {
 .leaderboard h2 {
     color: rgb(255, 255, 255);
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: 1000;
     font-size: 40px;
     margin-bottom: 20px;
@@ -206,6 +231,7 @@ button:hover {
     gap: 15px;
     max-width: 600px;
     margin: 0 auto;
+    margin-top: 200px;
     
 }
 
@@ -365,9 +391,17 @@ h1 {
 /* Estilos para los labels y campos de texto */
 label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: white;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #007bff; /* Cambia a un azul moderno */
+    font-size: 18px;
+    text-transform: uppercase; /* Poner el texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: color 0.3s ease; /* Transición suave al cambiar de color */
+}
+label:hover {
+    color: #0056b3; /* Cambiar el color cuando pasas el mouse */
+    transform: translateY(-2px); /* Ligeramente eleva la etiqueta al pasar el mouse */
 }
 
 input[type="text"],
@@ -406,7 +440,7 @@ textarea {
 }
 
 .custom-file-label:hover {
-    background-color: #0056b3;
+    background-color: #f68585;
 }
 
 /* Para mostrar el nombre del archivo seleccionado */
@@ -414,6 +448,11 @@ textarea {
     margin-bottom: 20px;
     font-size: 14px;
     color: #ccc;
+    white-space: nowrap;        /* Evita el salto de línea */
+    overflow: hidden;           /* Oculta el texto que desborda */
+    text-overflow: ellipsis;    /* Añade "..." cuando el texto es demasiado largo */
+    max-width: 100%; 
+    margin-bottom: 100px;   
 }
 
 /* Estilo para el botón de envío */
@@ -453,6 +492,46 @@ button[type="submit"]:hover {
 }
 
 .titulolista{
+    margin-right: 100px;
     color: white;
-    font-size: 0px;
+    font-size: 50px;
+    text-align: center; /* Asegura que el texto esté centrado */
+    flex-grow:1 ; /* Esto permitirá que el título ocupe el espacio restante y se centre */
+}
+.titulolista h2 {
+    margin: 0;
+}
+
+
+#selectSong{
+    width: 100%;
+    padding: 15px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+/* Ocultar los campos de archivo originales */
+.file-input {
+    display: none;
+}
+
+/* Estilos para los botones personalizados */
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f5a1a1;
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.custom-file-label:hover {
+    background-color: #0056b3;
 }
