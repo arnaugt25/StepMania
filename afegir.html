@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyafegir">
-
+    <nav class="nav2">
+        <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
+        
+    </nav>
     <div class="form-container">
         <h1>Afegir una cançó</h1>
 
@@ -19,18 +22,24 @@
             <!-- Artista -->
             <label for="artista">Artista:</label>
             <input type="text" id="artista" name="artista" required>
-        
+
             <!-- Archivo de música -->
-            <label for="musica">Selecciona el fitxer de música</label>
-            <input type="file" id="musica" name="musica" accept="audio/*" required>
-        
+            <!-- <label for="musica">Selecciona el fitxer de música</label> -->
+            <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
+            <label for="musica" class="custom-file-label">Seleccionar música</label>
+            <span id="selected-music" class="file-selected">No hay archivo seleccionado</span>
+
             <!-- Archivo de carátula -->
-            <label for="caratula">Selecciona el fitxer de caràtula</label>
-            <input type="file" id="caratula" name="caratula" accept="image/*" required>
+            <!-- <label for="caratula">Selecciona el fitxer de caràtula</label> -->
+            <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
+            <label for="caratula" class="custom-file-label">Seleccionar carátula</label>
+            <span id="selected-caratula" class="file-selected">No hay archivo seleccionado</span>
 
             <!-- Archivo de txt -->
-            <label for="textFile">Selecciona el fitxer de txt</label>
-            <input type="file" id="textFile" name="textFile" accept="text/plain">
+            <!-- <label for="textFile">Selecciona el fitxer de txt</label> -->
+            <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
+            <label for="textFile" class="custom-file-label">Seleccionar texto</label>
+            <span id="selected-txt" class="file-selected">No hay archivo seleccionado</span>
 
             <!-- Descripción -->
             <label for="descripcion">Descripción</label>
@@ -40,6 +49,21 @@
             <button type="submit">Afegir cançó</button>
         </form>
     </div>
+
+    <script>
+        // Actualizar el texto cuando se selecciona un archivo
+        document.getElementById('musica').addEventListener('change', function() {
+            document.getElementById('selected-music').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+        });
+
+        document.getElementById('caratula').addEventListener('change', function() {
+            document.getElementById('selected-caratula').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+        });
+
+        document.getElementById('textFile').addEventListener('change', function() {
+            document.getElementById('selected-txt').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+        });
+    </script>
 
 </body>
 </html>

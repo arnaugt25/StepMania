@@ -7,14 +7,12 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyafegir">
-    <nav>
-        <ul>
-            <li><a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a></li>
-        </ul>
+    <nav class="nav2">
+        <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
     </nav>
 
     <div class="form-container">
-        <h1>Seleccionar Canción para Editar</h1>
+        <h1>Editar una cançó</h1>
 
         <!-- Seleccionar canción -->
         <select id="selectSong" onchange="loadSongData()" required>
@@ -22,7 +20,7 @@
         </select>
 
         <!-- Formulario para editar la canción -->
-        <form id="editSongForm" action="php/editarCancion.php" method="post" enctype="multipart/form-data" style="display: none;">
+        <form id="editSongForm" action="php/editar.php" method="post" enctype="multipart/form-data" style="display: none;">
             <input type="hidden" id="songId" name="songId">
 
             <!-- Título de la canción -->
@@ -34,12 +32,16 @@
             <input type="text" id="artista" name="artista" required>
 
             <!-- Archivo de música -->
-            <label for="musica">Selecciona un nuevo archivo de música (opcional)</label>
-            <input type="file" id="musica" name="musica" accept="audio/*">
+            <label for="musica" class="custom-file-label">Seleccionar música (opcional)</label>
+            <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
+            <span id="current-music" class="file-selected">No hay archivo de música actual</span> <!-- Aquí se mostrará la música actual -->
+            <span id="selected-music" class="file-selected"></span> <!-- Aquí se mostrará el nuevo archivo si lo seleccionas -->
 
             <!-- Archivo de carátula -->
-            <label for="caratula">Selecciona una nueva carátula (opcional)</label>
-            <input type="file" id="caratula" name="caratula" accept="image/*">
+            <label for="caratula" class="custom-file-label">Seleccionar carátula (opcional)</label>
+            <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
+            <span id="current-caratula" class="file-selected">No hay archivo de carátula actual</span> <!-- Aquí se mostrará la carátula actual -->
+            <span id="selected-caratula" class="file-selected">o</span> <!-- Aquí se mostrará la nueva carátula si la seleccionas -->
 
             <!-- Descripción -->
             <label for="descripcion">Descripción</label>
@@ -79,12 +81,26 @@
                     document.getElementById('titulo').value = cancion.titulo;
                     document.getElementById('artista').value = cancion.artista;
                     document.getElementById('descripcion').value = cancion.descripcion || '';
-                    
+
+                    // Mostrar los nombres de los archivos actuales
+                    document.getElementById('current-music').textContent = cancion.archivoMusica ? cancion.archivoMusica.split('/').pop() : 'No hay archivo de música actual';
+                    document.getElementById('current-caratula').textContent = cancion.archivoCaratula ? cancion.archivoCaratula.split('/').pop() : 'No hay archivo de carátula actual';
+
                     // Mostrar el formulario
                     document.getElementById('editSongForm').style.display = 'block';
                 })
                 .catch(error => console.error('Error al cargar los datos de la canción:', error));
         }
+
+        // Actualizar el texto cuando se selecciona un archivo nuevo
+        document.getElementById('musica').addEventListener('change', function() {
+            document.getElementById('selected-music').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+        });
+
+        document.getElementById('caratula').addEventListener('change', function() {
+            document.getElementById('selected-caratula').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+        });
     </script>
+
 </body>
 </html>
