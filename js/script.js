@@ -44,3 +44,37 @@ const caratula = document.createElement('img');
 caratula.src = cancion.archivoCaratula;  // Verifica que el archivo JSON tiene la ruta correcta
 caratula.alt = `Carátula de ${cancion.titulo}`;
 caratula.classList.add('song-img');  // Aplicar la clase CSS
+
+fetch('php/json.json')
+    .then(response => response.json())
+    .then(data => {
+        const selectSong = document.getElementById('selectSong');
+        data.forEach((cancion, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = cancion.titulo;
+            selectSong.appendChild(option);
+        });
+    })
+    .catch(error => console.error('Error al cargar las canciones:', error));
+
+// Cargar los datos de la canción seleccionada en el formulario
+function loadSongData() {
+    const selectSong = document.getElementById('selectSong');
+    const selectedIndex = selectSong.value;
+    if (selectedIndex === "") return;
+
+    fetch('php/json.json')
+        .then(response => response.json())
+        .then(data => {
+            const cancion = data[selectedIndex];
+            document.getElementById('songId').value = selectedIndex; // Guardar el índice de la canción
+            document.getElementById('titulo').value = cancion.titulo;
+            document.getElementById('artista').value = cancion.artista;
+            document.getElementById('descripcion').value = cancion.descripcion || '';
+            
+            // Mostrar el formulario
+            document.getElementById('editSongForm').style.display = 'block';
+        })
+        .catch(error => console.error('Error al cargar los datos de la canción:', error));
+}
