@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['musica']) && isset($_FILES['caratula'])) {
         
         // Directorios de subida
-        $musica_dir = 'php/uploads/musica/';
-        $caratula_dir = 'php/uploads/caratula/';
-        $text_dir = 'php/uploads/text/'; // Directorio para archivos de texto
+        $musica_dir = '../uploads/musica/';
+        $caratula_dir = '../uploads/caratula/';
+        $text_dir = '../uploads/text/'; // Directorio para archivos de texto
 
         // Verificar y crear los directorios si no existen
         if (!is_dir($musica_dir)) {
@@ -91,3 +91,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
