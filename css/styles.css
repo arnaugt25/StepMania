@@ -543,3 +543,60 @@ button[type="submit"]:hover {
 .custom-file-label:hover {
     background-color: #0056b3;
 }
+
+/* Estilos generales del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo para que se superponga sobre el contenido */
+    z-index: 1; /* Aparece sobre otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Cubrir todo el ancho de la pantalla */
+    height: 100%; /* Cubrir todo el alto de la pantalla */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: rgba(43, 43, 43, 0.9);
+    margin: 15% auto; /* Centrar verticalmente */
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px; /* Ancho del modal */
+    animation: appear 0.5s ease; /* Animación de aparición */
+    color: white;
+}
+
+/* Botón de cierre (la 'x') */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    cursor: pointer;
+}
+
+/* Animación para que el modal aparezca suavemente */
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bodymodal{
+    background-image: url(img/gif.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Fondo fijo */  
+    
+}

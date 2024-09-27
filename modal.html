@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal with Mandatory Input</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bodymodal">
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Your Name</h2>
+            <p>Introduce a name for the Ranking</p>
+            <form id="nameForm">
+                <input type="text" id="nameInput" placeholder="Enter your name" required>
+                <p id="error" style="color: red; display: none;">Please enter a name!</p>
+                <button type="submit" id="submitName">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("myModal");
+            var nameInput = document.getElementById("nameInput");
+            var error = document.getElementById("error");
+
+            // Mostrar el modal automáticamente al cargar la página
+            modal.style.display = "block";
+
+            // Evitar que el usuario cierre el modal al hacer clic fuera o con la tecla "Esc"
+            window.onclick = function(event) {
+                if (event.target != modal) {
+                    modal.style.display = "block";
+                }
+            };
+
+            // Validar si el usuario escribe un nombre antes de permitir cerrar el modal
+            document.getElementById("nameForm").onsubmit = function(event) {
+                event.preventDefault(); // Prevenir el envío del formulario
+                if (nameInput.value.trim() === "") {
+                    error.style.display = "block"; // Mostrar mensaje de error
+                } else {
+                    error.style.display = "none"; // Ocultar mensaje de error
+                    modal.style.display = "none"; // Cerrar el modal si el nombre es válido
+                }
+            };
+        });
+    </script>
+</body>
+</html>
