@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Guardar el archivo JSON actualizado
         file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
 
-        // Redirigir de vuelta a la página de edición con un mensaje de éxito
+        // Redirigir de vuelta a la página de reproducción
         header('Location: ../play.html');
         exit();
         
@@ -70,3 +70,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<?php
+// Al cargar la página para editar
+if (isset($_GET['id'])) {
+    $json_file = 'json.json';
+    $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
+    $songId = $_GET['id'];
+
+    if (isset($canciones[$songId])) {
+        $cancion = $canciones[$songId];
+    } else {
+        echo "Error: La canción no existe.";
+        exit();
+    }
+} else {
+    echo "Error: ID de la canción no especificado.";
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Canciones</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/script.js"></script>
+</head>
+<body class="bodyafegir">
+    <nav class="nav2">
+        <a href="index.html"><img src="../css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
+    </nav>
+
+    <div class="form-container">
+        
+        <!-- Formulario para editar la canción -->
+        <form id="editSongForm" action="editar.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="songId" name="songId" value="<?php echo $songId; ?>">
+
+            <!-- Título de la canción -->
+            <label for="titulo">Song Title:</label>
+            <input type="text" id="titulo" name="titulo" value="<?php echo $cancion['titulo']; ?>" required>
+
+            <!-- Artista -->
+            <label for="artista">Artist:</label>
+            <input type="text" id="artista" name="artista" value="<?php echo $cancion['artista']; ?>" required>
+
+            <div class="file-input-container">
+                <!-- Archivo de música -->
+                <label for="musica" class="custom-file-label">Select music (optional)</label>
+                <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
+                <span id="current-music" class="file-selected">
+                    <?php echo basename($cancion['archivoMusica']); ?>
+                </span>
+
+                <!-- Archivo de carátula -->
+                <label for="caratula" class="custom-file-label">Select Picture (optional)</label>
+                <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
+                <span id="current-caratula" class="file-selected">
+                    <?php echo basename($cancion['archivoCaratula']); ?>
+                </span>
+
+                <!-- Archivo de texto -->
+                <label for="textFile" class="custom-file-label">Select TXT (optional)</label>
+                <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
+                <span id="selected-txt" class="file-selected">No file</span>
+            </div>
+
+            <!-- Descripción -->
+            <label for="descripcion">Description</label>
+            <textarea id="descripcion" name="descripcion"><?php echo $cancion['descripcion']; ?></textarea>
+
+            <!-- Botón de submit -->
+            <button type="submit">Update Song</button>
+        </form>
+    </div>
+
+</body>
+</html>

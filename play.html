@@ -9,49 +9,63 @@
 <body class="bodyplay">
     <nav class="nav1">
         <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
-        <div class="titulolista "><h2>PlayList</h2></div>
+        <div class="titulolista"><h2>PlayList</h2></div>
     </nav>
     <!-- Contenedor exclusivo para la playlist -->
     <div id="playlist-container">
         <section id="play-song-list">
             <!-- Ejemplo de canción 1 -->
-            <div class="play-song-item">
-                <img src="php/uploads/descarga.png" alt="Imagen de la canción 1" class="song-img">
+
+            <div class="play-song-item" onmouseover="playAudio(this)" onmouseout="pauseAudio(this)">
+                <img src="php/uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
                 <div class="play-song-info">
-                    <h2>Paint The Town Blue</h2>
-                    <p>de Ashnikko</p>
-                    <p class="mapper">Created by <strong>-eNVy-</strong></p>
+                    <h2>Viva la vida</h2>
+                    <p>by Coldplay</p>
+                    <p class="mapper">Created by <strong>Arnau</strong></p>
                     <div class="status">
-                        <span class="status-label">CLASIFICADO</span>
+                        <span class="status-label">RANKED</span>
+                        <span class="status-label">ORIGINAL</span>
                         <div class="difficulty">
-                            <span class="circle" style="background-color: green;"></span>
-                            <span class="circle" style="background-color: yellow;"></span>
                             <span class="circle" style="background-color: red;"></span>
+                            <span class="circle" style="background-color: yellow;"></span>
+                            <span class="circle" style="background-color: green;"></span>
                         </div>
                     </div>
                 </div>
-            </div>
+            
+                <!-- Etiqueta de audio -->
+                <audio class="song-audio" src="php/uploads/Viva la Vida - Coldplay.mp3"></audio> <!-- Cambia el archivo de la canción -->
+            </div>   
+
+            
 
             <!-- Ejemplo de canción 2 -->
-            <div class="play-song-item">
-                <img src="php/uploads/descarga.png" alt="Imagen de la canción 2" class="song-img">
+            <div class="play-song-item" onmouseover="playAudio(this)" onmouseout="pauseAudio(this)">
+                <img src="php/uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
                 <div class="play-song-info">
-                    <h2>HULA HOOP (Cut Ver.)</h2>
-                    <p>de LOONA</p>
-                    <p class="mapper">Created by <strong>Skylmin</strong></p>
+                    <h2>The Real Slim Shady</h2>
+                    <p>by Eminem</p>
+                    <p class="mapper">Created by <strong>Arnau</strong></p>
                     <div class="status">
-                        <span class="status-label">CLASIFICADO</span>
+                        <span class="status-label">RANKED</span>
+                        <span class="status-label">ORIGINAL</span>
                         <div class="difficulty">
-                            <span class="circle" style="background-color: blue;"></span>
-                            <span class="circle" style="background-color: purple;"></span>
+                            <span class="circle" style="background-color: red;"></span>
                             <span class="circle" style="background-color: yellow;"></span>
+                            <span class="circle" style="background-color: green;"></span>
                         </div>
                     </div>
                 </div>
+                <!-- Barra de progreso -->
+                <div class="progress-bar-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <!-- Etiqueta de audio, con muted inicialmente -->
+                <audio class="song-audio" src="php/uploads/Eminem - The Real Slim Shady.mp3"></audio>
             </div>
         </section>
     </div>
-    <div id="songList"></div>
+   
 
     <script>
         // Función para generar colores aleatorios
@@ -72,68 +86,177 @@
             }
             return circles;
         }
-    
-        // Leer el archivo JSON y mostrar las canciones
-        fetch('php/json.json')
-            .then(response => response.json())
-            .then(data => {
-                const songList = document.getElementById('play-song-list');
-    
-                data.forEach(cancion => {
-                    // Crear el contenedor principal con la clase adecuada
-                    const songItem = document.createElement('div');
-                    songItem.classList.add('play-song-item');  // Aplicar la clase CSS
-    
-                    // Añadir la imagen de la carátula con la clase adecuada
-                    const caratula = document.createElement('img');
-                    caratula.src = cancion.archivoCaratula;
-                    caratula.alt = `Carátula de ${cancion.titulo}`;
-                    caratula.classList.add('song-img');  // Aplicar la clase CSS
-    
-                    // Crear el contenedor de información de la canción
-                    const songInfo = document.createElement('div');
-                    songInfo.classList.add('play-song-info');  // Aplicar la clase CSS
-                    songInfo.innerHTML = `
-                        <h2>${cancion.titulo}</h2>
-                        <p>de ${cancion.artista}</p>
-                        <p class="mapper">Created by <strong>${cancion.artista}</strong></p>
-                    `;
-    
-                    // Crear la sección de estado (status)
-                    const status = document.createElement('div');
-                    status.classList.add('status');  // Aplicar la clase CSS
-    
-                    const statusLabel = document.createElement('span');
-                    statusLabel.classList.add('status-label');  // Aplicar la clase CSS
-                    statusLabel.innerText = 'CLASIFICADO';  // Ajusta esto según la lógica de tu aplicación
-    
-                    // Añadir los círculos de dificultad aleatorios
-                    const difficulty = document.createElement('div');
-                    difficulty.classList.add('difficulty');  // Aplicar la clase CSS
-    
-                    // Generar círculos aleatorios y agregarlos
-                    const circles = getRandomCircles();
-                    circles.forEach(circle => {
-                        difficulty.appendChild(circle);
-                    });
-    
-                    // Añadir la sección de dificultad y estado al contenedor de la canción
-                    status.appendChild(statusLabel);
-                    status.appendChild(difficulty);
-                    songInfo.appendChild(status);
-    
-                    // Añadir los elementos al contenedor principal
-                    songItem.appendChild(caratula);
-                    songItem.appendChild(songInfo);
-    
-                    // Añadir la nueva canción al listado
-                    songList.appendChild(songItem);
-                });
+
+        // Función para eliminar una canción
+        function eliminarCancion(index) {
+            fetch(`php/eliminar.php?index=${index}`, {
+                method: 'GET',
             })
-            .catch(error => console.error('Error al cargar el JSON:', error));
-    </script>
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                location.reload();  // Recargar la página para reflejar los cambios
+            })
+            .catch(error => console.error('Error al eliminar la canción:', error));
+        }
+
+        function editarCancion(cancion, index) {
+    // Redirigir a la página de editar con el índice de la canción como parámetro
+    window.location.href = `php/editar.php?id=${index}`;
+}
+
+// Leer el archivo JSON y mostrar las canciones
+fetch('php/json.json')
+    .then(response => response.json())
+    .then(data => {
+        const songList = document.getElementById('play-song-list');
+
+        data.forEach((cancion, index) => {
+            // Crear el contenedor principal con la clase adecuada
+            const songItem = document.createElement('div');
+            songItem.classList.add('play-song-item');  // Aplicar la clase CSS
+
+            // Añadir la imagen de la carátula con la clase adecuada
+            const caratula = document.createElement('img');
+            caratula.src = cancion.archivoCaratula;
+            caratula.alt = `Carátula de ${cancion.titulo}`;
+            caratula.classList.add('song-img');  // Aplicar la clase CSS
+
+            // Crear el contenedor de información de la canción
+            const songInfo = document.createElement('div');
+            songInfo.classList.add('play-song-info');  // Aplicar la clase CSS
+            songInfo.innerHTML = `
+                <h2>${cancion.titulo}</h2>
+                <p>de ${cancion.artista}</p>
+                <p class="mapper">Created by <strong>${cancion.artista}</strong></p>
+            `;
+
+            // Crear la sección de estado (status)
+            const status = document.createElement('div');
+            status.classList.add('status');  // Aplicar la clase CSS
+
+            const statusLabel = document.createElement('span');
+            statusLabel.classList.add('status-label');  // Aplicar la clase CSS
+            statusLabel.innerText = 'CLASIFICADO';  // Ajusta esto según la lógica de tu aplicación
+
+            // Añadir los círculos de dificultad aleatorios
+            const difficulty = document.createElement('div');
+            difficulty.classList.add('difficulty');  // Aplicar la clase CSS
+
+            // Generar círculos aleatorios y agregarlos
+            const circles = getRandomCircles();
+            circles.forEach(circle => {
+                difficulty.appendChild(circle);
+            });
+
+            // Añadir la sección de dificultad y estado al contenedor de la canción
+            status.appendChild(statusLabel);
+            status.appendChild(difficulty);
+            songInfo.appendChild(status);
+
+            // Crear el contenedor para los botones (editar/eliminar)
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('buttons-container');  // Aplicar la clase CSS
+
+            // Crear el botón de eliminar
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = '❌';
+            deleteButton.classList.add('delete-button');
+            deleteButton.addEventListener('click', () => {
+                eliminarCancion(index);
+            });
+
+            // Crear el botón de editar
+            const editButton = document.createElement('button');
+            editButton.innerText = '✏️';
+            editButton.classList.add('edit-button');
+            editButton.addEventListener('click', () => {
+                editarCancion(cancion, index);
+            });
+
+            // Añadir los botones al contenedor de botones
+            buttonsContainer.appendChild(editButton);
+            buttonsContainer.appendChild(deleteButton);
+
+            // Añadir los elementos al contenedor principal
+            songItem.appendChild(caratula);
+            songItem.appendChild(songInfo);
+            songItem.appendChild(buttonsContainer);  // Añadir los botones
+
+            // Añadir la nueva canción al listado
+            songList.appendChild(songItem);
+        });
+    })
+    .catch(error => console.error('Error al cargar el JSON:', error));    
+
+        // Función para reproducir la canción cuando el ratón pase por encima
+            function playAudio(element) {
+                const audio = element.querySelector('audio');
+                if (audio) {
+                    audio.play();
+                    timeoutId = setTimeout(() => {
+                    audio.pause();
+                }, 10000); // 10 segundos en milisegundos
+                }
+            }
+            
+                // Función para pausar la canción cuando el ratón salga del recuadro
+            function pauseAudio(element) {
+                const audio = element.querySelector('audio');
+                if (audio) {
+                    audio.pause();
+                    audio.currentTime = 0; // Reiniciar la canción
+                }
+             }
     
+             let timeoutId;
+    let intervalId;
+
+    // Función para reproducir la canción y empezar la barra de progreso
+    function playAudio(element) {
+        const audio = element.querySelector('audio');
+        const progressBar = element.querySelector('.progress-bar');
+
+        if (audio) {
+            audio.currentTime = 0; // Reiniciar la canción desde el principio
+            audio.play();
+
+            // Resetear la barra de progreso
+            progressBar.style.width = '0%';
+
+            // Actualizar la barra de progreso cada 100ms
+            intervalId = setInterval(() => {
+                const progress = (audio.currentTime / 10) * 100; // Convertir el tiempo a porcentaje para 10s
+                progressBar.style.width = `${Math.min(progress, 100)}%`;
+            }, 100); // Actualizar cada 100ms (0.1 segundos)
+
+            // Pausar el audio después de 10 segundos
+            timeoutId = setTimeout(() => {
+                audio.pause();
+                clearInterval(intervalId); // Detener la actualización de la barra
+            }, 10000); // 10 segundos en milisegundos
+        }
+    }
+
+    // Función para pausar la canción y detener la barra de progreso
+    function pauseAudio(element) {
+        const audio = element.querySelector('audio');
+        const progressBar = element.querySelector('.progress-bar');
+
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0; // Reiniciar la canción
+
+            // Resetear la barra de progreso
+            progressBar.style.width = '0%';
+
+            // Cancelar el temporizador y el intervalo si el ratón sale antes de los 10 segundos
+            clearTimeout(timeoutId);
+            clearInterval(intervalId);
+        }
+    }
+    </script>
  
     <script src="js/script.js"></script>
 </body>
-</html>     
+</html>

@@ -1,26 +1,20 @@
 [
     {
-        "titulo": "adwadwad",
-        "artista": "adadadd",
-        "descripcion": "",
+        "id": 1,
+        "titulo": "aaaaaaaaaaa",
+        "artista": "aaaaaaaaaaaaa",
+        "descripcion": "aaaaaaaa",
         "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
         "archivoCaratula": "..\/uploads\/caratula\/descargaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png",
-        "archivoTexto": null
+        "archivoTexto": "..\/uploads\/text\/descripcion_66fad138a48a9.txt"
     },
     {
-        "titulo": "aadadwada",
-        "artista": "dwadawdawd",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Baby Shark Dance (1).mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/descarga.png",
-        "archivoTexto": null
-    },
-    {
-        "titulo": "adad",
-        "artista": "adad",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Baby Shark Dance (1).mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/descarga.png",
-        "archivoTexto": null
+        "id": 2,
+        "titulo": "ddddddddddddd",
+        "artista": "ddddddddd",
+        "descripcion": "adawdasdwad",
+        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/realslimshady.png",
+        "archivoTexto": "..\/uploads\/text\/descripcion_66fad3ec3d7a9.txt"
     }
 ]

@@ -67,8 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $json_file = 'json.json';
         $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
-        // Crear la nueva entrada de canción
+        // Obtener el último ID
+        $ultimo_id = 0;
+        if (!empty($canciones)) {
+            foreach ($canciones as $cancion) {
+                if (isset($cancion['id']) && $cancion['id'] > $ultimo_id) {
+                    $ultimo_id = $cancion['id'];
+                }
+            }
+        }
+
+        // Crear la nueva entrada de canción con un ID incrementado
+        $nuevo_id = $ultimo_id + 1;
+
         $nueva_cancion = array(
+            'id' => $nuevo_id,
             'titulo' => $titulo,
             'artista' => $artista,
             'descripcion' => $descripcion, // Esto también se guarda en el JSON por si acaso
@@ -91,4 +104,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-

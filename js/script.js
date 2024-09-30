@@ -78,3 +78,46 @@ function loadSongData() {
         })
         .catch(error => console.error('Error al cargar los datos de la canción:', error));
 }
+
+
+// Obtener el parámetro 'song' de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const songIndex = urlParams.get('song');
+
+if (songIndex !== null) {
+    loadSongData(songIndex); // Llamar a la función para cargar los datos de la canción seleccionada
+}
+
+// Cargar los datos de la canción seleccionada en el formulario
+function loadSongData(index) {
+    fetch('php/json.json')
+        .then(response => response.json())
+        .then(data => {
+            const cancion = data[index];
+            document.getElementById('songId').value = index; // Guardar el índice de la canción
+            document.getElementById('titulo').value = cancion.titulo;
+            document.getElementById('artista').value = cancion.artista;
+            document.getElementById('descripcion').value = cancion.descripcion || '';
+
+            // Mostrar los nombres de los archivos actuales
+            document.getElementById('current-music').textContent = cancion.archivoMusica ? cancion.archivoMusica.split('/').pop() : 'No hay archivo de música actual';
+            document.getElementById('current-caratula').textContent = cancion.archivoCaratula ? cancion.archivoCaratula.split('/').pop() : 'No hay archivo de carátula actual';
+
+            // Mostrar el formulario
+            document.getElementById('editSongForm').style.display = 'block';
+        })
+        .catch(error => console.error('Error al cargar los datos de la canción:', error));
+}
+
+// Actualizar el texto cuando se selecciona un archivo nuevo
+document.getElementById('musica').addEventListener('change', function() {
+    document.getElementById('selected-music').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+});
+
+document.getElementById('caratula').addEventListener('change', function() {
+    document.getElementById('selected-caratula').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+});
+
+document.getElementById('textFile').addEventListener('change', function() {
+    document.getElementById('selected-txt').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
+});

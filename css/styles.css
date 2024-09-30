@@ -184,7 +184,6 @@ button:hover {
 }
 
 .leaderboard th, .leaderboard td {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border: 0px solid rgb(255, 255, 255);
     border-radius: 10px;
     padding: 15px; /* Aumentar el padding para más espacio vertical */
@@ -209,6 +208,7 @@ button:hover {
 .ver-mas-button {
     margin-top: 20px; 
     text-align: center; 
+    font-family: 'CoffeeSoda', sans-serif;
 }
 
 .ver-mas-button button {
@@ -220,6 +220,7 @@ button:hover {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    font-family: 'CoffeeSoda', sans-serif;
 }
 
 .ver-mas-button button:hover {
@@ -251,39 +252,24 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
     margin-bottom: 20px;
+    justify-content: space-between;
 }
 
 .play-song-item:hover {
     background-color: #4a4a4a;
 }
-
-.delete-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-    background-color: #ff4d4d;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-    background-color: #e60000;
-}
-
 .song-img {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border-radius: 8px;
     margin-right: 15px;
 }
 
 .play-song-info {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .play-song-info h2 {
@@ -305,8 +291,9 @@ button:hover {
 .status {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: space-between; /* Separar los textos y los círculos */
+    width: 100%; /* Asegura que los elementos ocupen todo el ancho disponible */
+    gap: 10px;  
 }
 
 .status-label {
@@ -315,21 +302,44 @@ button:hover {
     border-radius: 5px;
     font-size: 12px;
     color: #fff;
+    margin-right: 5px; /* Espacio entre las etiquetas "RANKED" y "ORIGINAL" */
 }
-
 .circle {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 5px;
 }
 
+.edit-button, .delete-button{
+    background-color: transparent; 
+    border: none;                  
+    cursor: pointer;
+    font-size: 16px;
+    color: red;                    
+    outline: none; 
+}
+.delete-button:hover, .edit-button:hover { 
+    background-color:   rgba(79,79,79,255);               
+}
+
+.delete-button:focus, .edit-button:focus {
+    outline: none; /* Elimina el contorno al hacer clic */
+}   
+
+.buttons-container {
+    position: absolute;           
+    top: 0px;                     
+    right: 5px;
+    gap: 2px;            
+}
 .difficulty {
     display: flex;
     align-items: center;
+    justify-content: flex-end;    /* Asegura que los puntos se alineen a la derecha */
+    margin-left: auto;   
 }
-
 
 .ranking-container {
     margin: 50px auto;
@@ -343,7 +353,6 @@ button:hover {
 
 .ranking-container h1 {
     color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 50px;
     margin-bottom: 30px;
 }
@@ -599,4 +608,22 @@ button[type="submit"]:hover {
     background-position: center;
     background-attachment: fixed; /* Fondo fijo */  
     
+}
+
+/* Contenedor de la barra de progreso */
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+/* Barra de progreso que cambia de tamaño */
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.1s ease-in-out;
 }
