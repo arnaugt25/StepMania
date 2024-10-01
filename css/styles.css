@@ -317,7 +317,7 @@ button:hover {
     border: none;                  
     cursor: pointer;
     font-size: 16px;
-    color: red;                    
+    color:      rgb(255, 255, 255);                    
     outline: none; 
 }
 .delete-button:hover, .edit-button:hover , .play-button:hover { 
