@@ -312,7 +312,7 @@ button:hover {
     margin-right: 5px;
 }
 
-.edit-button, .delete-button{
+.edit-button, .delete-button , .play-button{
     background-color: transparent; 
     border: none;                  
     cursor: pointer;
@@ -320,11 +320,11 @@ button:hover {
     color: red;                    
     outline: none; 
 }
-.delete-button:hover, .edit-button:hover { 
+.delete-button:hover, .edit-button:hover , .play-button:hover { 
     background-color:   rgba(79,79,79,255);               
 }
 
-.delete-button:focus, .edit-button:focus {
+.delete-button:focus, .edit-button:focus , .play-button:focus{
     outline: none; /* Elimina el contorno al hacer clic */
 }   
 
