@@ -1,27 +1,40 @@
 <?php
 if (isset($_GET['index'])) {
-    $index = intval($_GET['index']);
-
-    // Ruta del archivo JSON
-    $jsonFile = 'json.json';
+    $index = $_GET['index'];
 
     // Leer el archivo JSON
-    $jsonData = file_get_contents($jsonFile);
-    $data = json_decode($jsonData, true);
+    $json_file = 'json.json';
+    $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
-    // Verificar si el índice es válido
-    if ($index >= 0 && $index < count($data)) {
-        // Eliminar la entrada en el índice
-        array_splice($data, $index, 1);
+    // Verificar que la canción exista
+    if (isset($canciones[$index])) {
+        // Obtener los archivos asociados
+        $archivoMusica = $canciones[$index]['archivoMusica'];
+        $archivoCaratula = $canciones[$index]['archivoCaratula'];
+        $archivoTexto = isset($canciones[$index]['archivoTexto']) ? $canciones[$index]['archivoTexto'] : null;
 
-        // Guardar los cambios en el archivo JSON
-        file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
+        // Eliminar los archivos del servidor
+        if (file_exists($archivoMusica)) {
+            unlink($archivoMusica);  // Eliminar archivo de música
+        }
+        if (file_exists($archivoCaratula)) {
+            unlink($archivoCaratula);  // Eliminar archivo de carátula
+        }
+        if ($archivoTexto && file_exists($archivoTexto)) {
+            unlink($archivoTexto);  // Eliminar archivo de texto si existe
+        }
 
-        echo "Canción eliminada exitosamente.";
+        // Eliminar la canción del array
+        array_splice($canciones, $index, 1);
+
+        // Guardar el archivo JSON actualizado
+        file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
+
+        echo "Canción eliminada correctamente.";
     } else {
-        echo "Índice inválido.";
+        echo "La canción no existe.";
     }
 } else {
-    echo "Índice no proporcionado.";
+    echo "No se especificó el índice de la canción.";
 }
 ?>

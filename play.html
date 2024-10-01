@@ -18,7 +18,7 @@
         <section id="play-song-list">
             <!-- Ejemplo de canción 1 -->
             <div class="play-song-item">
-                <img src="php/uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
+                <img src="../uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
                 <div class="play-song-info">
                     <h2>Viva la vida</h2>
                     <p>by Coldplay</p>
@@ -43,7 +43,7 @@
 
             <!-- Ejemplo de canción 2 -->
             <div class="play-song-item">
-                <img src="php/uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
+                <img src="../uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
                 <div class="play-song-info">
                     <h2>The Real Slim Shady</h2>
                     <p>by Eminem</p>
@@ -229,6 +229,18 @@
                 });
             })
             .catch(error => console.error('Error al cargar el JSON:', error));
+            function eliminarCancion(index) {
+            fetch(`php/eliminar.php?index=${index}`, {
+                method: 'GET',
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                location.reload();  // Recargar la página para reflejar los cambios
+            })
+            .catch(error => console.error('Error al eliminar la canción:', error));
+            }
+
     </script>
 </body>
 </html>

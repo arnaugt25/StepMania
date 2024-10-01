@@ -1,11 +1,1 @@
-[
-    {
-        "id": 1,
-        "titulo": "song 1",
-        "artista": "artist 1",
-        "descripcion": "hola",
-        "archivoMusica": "..\/uploads\/musica\/Eminem - The Real Slim Shady.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/coldplay.png",
-        "archivoTexto": "..\/uploads\/text\/juego.txt.txt"
-    }
-]
+[]
