@@ -1,20 +1,11 @@
 [
     {
         "id": 1,
-        "titulo": "aaaaaaaaaaa",
-        "artista": "aaaaaaaaaaaaa",
-        "descripcion": "aaaaaaaa",
-        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/descargaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png",
-        "archivoTexto": "..\/uploads\/text\/descripcion_66fad138a48a9.txt"
-    },
-    {
-        "id": 2,
-        "titulo": "ddddddddddddd",
-        "artista": "ddddddddd",
-        "descripcion": "adawdasdwad",
-        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/realslimshady.png",
-        "archivoTexto": "..\/uploads\/text\/descripcion_66fad3ec3d7a9.txt"
+        "titulo": "song 1",
+        "artista": "artist 1",
+        "descripcion": "hola",
+        "archivoMusica": "..\/uploads\/musica\/Eminem - The Real Slim Shady.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/coldplay.png",
+        "archivoTexto": "..\/uploads\/text\/juego.txt.txt"
     }
 ]

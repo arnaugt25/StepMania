@@ -150,6 +150,7 @@ button {
     margin: 10px 0;
     width: fit-content;
     height: fit-content;
+    font-family: 'CoffeeSoda', sans-serif;
 }
 
 button:hover {
@@ -393,6 +394,7 @@ button:hover {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 75px;
 }
 
 /* Título del formulario */
@@ -432,6 +434,7 @@ textarea {
     resize: vertical;
     background-color: #333;
     color: #fff;
+    font-family: 'CoffeeSoda', sans-serif; 
 }
 
 /* Estilo para los campos de archivo */
@@ -450,6 +453,7 @@ textarea {
     text-align: center;
     transition: background-color 0.3s ease;
     margin-bottom: 10px;
+    width: 160px;
 }
 
 .custom-file-label:hover {
@@ -459,7 +463,13 @@ textarea {
 /* Para mostrar el nombre del archivo seleccionado */
 .file-selected {
     font-size: 0.9rem;
-    color: #ff4081;}
+    color: #ff4081;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    overflow: hidden; /* Oculta el texto que sobrepasa el ancho */
+    text-overflow: ellipsis; /* Muestra "..." cuando el texto es demasiado largo */
+    max-width: 300px; /* Ajusta el ancho máximo según tu diseño */
+    display: inline-block; /* Asegura que la propiedad funcione correctamente */
+}
 
 /* Estilo para el botón de envío */
 button[type="submit"] {
@@ -626,4 +636,8 @@ button[type="submit"]:hover {
     height: 100%;
     background-color: #4caf50;
     transition: width 0.1s ease-in-out;
+}
+
+.descripcion{
+    margin-top: 20px;
 }

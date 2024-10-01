@@ -109,15 +109,23 @@ function loadSongData(index) {
         .catch(error => console.error('Error al cargar los datos de la canción:', error));
 }
 
-// Actualizar el texto cuando se selecciona un archivo nuevo
-document.getElementById('musica').addEventListener('change', function() {
-    document.getElementById('selected-music').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
-});
+        // Actualizar el texto cuando se selecciona un nuevo archivo de música
+        document.getElementById('musica').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-music');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });
 
-document.getElementById('caratula').addEventListener('change', function() {
-    document.getElementById('selected-caratula').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
-});
+        // Actualizar el texto cuando se selecciona una nueva carátula
+        document.getElementById('caratula').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-caratula');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });
 
-document.getElementById('textFile').addEventListener('change', function() {
-    document.getElementById('selected-txt').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
-});
+        // Actualizar el texto cuando se selecciona un nuevo archivo de texto
+        document.getElementById('textFile').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-text');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });

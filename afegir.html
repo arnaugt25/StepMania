@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afegir una cançó</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
+
 </head>
 <body class="bodyafegir">
     <nav class="nav2">
@@ -22,27 +24,31 @@
             <!-- Artista -->
             <label for="artista">Artist:</label>
             <input type="text" id="artista" name="artista" required>
-        <div class="file-input-container">
-            <!-- Archivo de música -->
-            <!-- <label for="musica">Selecciona el fitxer de música</label> -->
-            <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
-            <label for="musica" class="custom-file-label">Select music</label>
-            <span id="selected-music" class="file-selected">No file</span>
-
-            <!-- Archivo de carátula -->
-            <!-- <label for="caratula">Selecciona el fitxer de caràtula</label> -->
-            <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
-            <label for="caratula" class="custom-file-label">Select picture</label>
-            <span id="selected-caratula" class="file-selected">No file</span>
-
-            <!-- Archivo de txt -->
-            <!-- <label for="textFile">Selecciona el fitxer de txt</label> -->
-            <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
-            <label for="textFile" class="custom-file-label">Selext TXT</label>
-            <span id="selected-txt" class="file-selected">No file</span>
-        </div>
+            <div class="file-input-container">
+                <!-- Campo de selección de música -->
+                <div class="file-upload">
+                    <label for="musica" class="custom-file-label">Select music  <i class="fa-solid fa-music"></i></label>
+                    <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
+                    <span id="selected-music" class="file-selected">No file</span>
+                </div>
+            
+                <!-- Campo de selección de carátula -->
+                <div class="file-upload">
+                    <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-file"></i></label>
+                    <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
+                    <span id="selected-caratula" class="file-selected">No file</span>
+                </div>
+            
+                <!-- Campo de selección de archivo de texto -->
+                <div class="file-upload">
+                    <label for="textFile" class="custom-file-label">Select TXT <i class="fa-solid fa-file-lines"></i></label>
+                    <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
+                    <span id="selected-txt" class="file-selected">No file</span>
+                </div>
+            </div>
+            
             <!-- Descripción -->
-            <label for="descripcion">Description</label>
+            <label for="descripcion" class="descripcion">Description</label>
             <textarea id="descripcion" name="descripcion" placeholder="Description here..."></textarea>
 
             <!-- Botón de submit -->

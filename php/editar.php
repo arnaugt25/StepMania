@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     // Leer el archivo JSON existente
     $json_file = 'json.json';
     $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar que la canción existe
     if ($songId !== null && isset($canciones[$songId])) {
-        
+
         // Actualizar los datos de la canción con los nuevos valores del formulario
         $canciones[$songId]['titulo'] = $_POST['titulo'];
         $canciones[$songId]['artista'] = $_POST['artista'];
@@ -28,13 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
             $canciones[$songId]['archivoMusica'] = $musica_file;  // Actualiza la música si se sube un nuevo archivo
-        } elseif ($_FILES['musica']['error'] === UPLOAD_ERR_NO_FILE) {
-            // No se ha subido ningún archivo de música nuevo, se mantiene el archivo anterior
-            // No hagas nada aquí, simplemente mantén el archivo existente.
-        } else {
-            // Capturar otros errores
-            echo "Error al subir el archivo de música. Código de error: " . $_FILES['musica']['error'];
-            exit();
         }
 
         // Subir archivo de carátula solo si se ha seleccionado uno
@@ -49,13 +42,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
             $canciones[$songId]['archivoCaratula'] = $caratula_file;  // Actualiza la carátula si se sube un nuevo archivo
-        } elseif ($_FILES['caratula']['error'] === UPLOAD_ERR_NO_FILE) {
-            // No se ha subido ninguna carátula nueva, se mantiene la anterior
-            // No hagas nada aquí, simplemente mantén el archivo existente.
-        } else {
-            // Capturar otros errores
-            echo "Error al subir el archivo de carátula. Código de error: " . $_FILES['caratula']['error'];
-            exit();
+        }
+
+        // Subir archivo de texto solo si se ha seleccionado uno
+        if (isset($_FILES['textFile']) && $_FILES['textFile']['error'] === UPLOAD_ERR_OK) {
+            $text_dir = '../uploads/text/';
+            if (!is_dir($text_dir)) {
+                mkdir($text_dir, 0777, true);
+            }
+            $text_file = $text_dir . basename($_FILES['textFile']['name']);
+            if (!move_uploaded_file($_FILES['textFile']['tmp_name'], $text_file)) {
+                echo "Error al mover el archivo de texto.";
+                exit();
+            }
+            $canciones[$songId]['archivoTexto'] = $text_file;  // Actualiza el archivo de texto si se sube uno nuevo
         }
 
         // Guardar el archivo JSON actualizado
@@ -97,11 +97,10 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Canciones</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/script.js"></script>
 </head>
 <body class="bodyafegir">
     <nav class="nav2">
-        <a href="index.html"><img src="../css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
+        <a href="../index.html"><img src="../css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
     </nav>
 
     <div class="form-container">
@@ -119,28 +118,36 @@ if (isset($_GET['id'])) {
             <input type="text" id="artista" name="artista" value="<?php echo $cancion['artista']; ?>" required>
 
             <div class="file-input-container">
-                <!-- Archivo de música -->
-                <label for="musica" class="custom-file-label">Select music (optional)</label>
-                <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
-                <span id="current-music" class="file-selected">
+                <!-- Campo de selección de música -->
+                <div class="file-upload">
+                    <label for="musica" class="custom-file-label">Select music  <i class="fa-solid fa-music"></i></label>
+                    <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
+                    <span id="current-music" class="file-selected">
                     <?php echo basename($cancion['archivoMusica']); ?>
                 </span>
-
-                <!-- Archivo de carátula -->
-                <label for="caratula" class="custom-file-label">Select Picture (optional)</label>
-                <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
-                <span id="current-caratula" class="file-selected">
+                </div>
+            
+                <!-- Campo de selección de carátula -->
+                <div class="file-upload">
+                    <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-file"></i></label>
+                    <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
+                    <span id="current-caratula" class="file-selected">
                     <?php echo basename($cancion['archivoCaratula']); ?>
                 </span>
-
-                <!-- Archivo de texto -->
-                <label for="textFile" class="custom-file-label">Select TXT (optional)</label>
-                <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
-                <span id="selected-txt" class="file-selected">No file</span>
+                </div>
+            
+                <!-- Campo de selección de archivo de texto -->
+                <div class="file-upload">
+                    <label for="textFile" class="custom-file-label">Select text <i class="fa-solid fa-file-lines"></i></label>
+                    <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
+                    <span id="current-text" class="file-selected">
+                        <?php echo isset($cancion['archivoTexto']) && !empty($cancion['archivoTexto']) ? basename($cancion['archivoTexto']) : 'No file'; ?>
+                    </span>
+                </div>
             </div>
 
             <!-- Descripción -->
-            <label for="descripcion">Description</label>
+            <label for="descripcion" class="descripcion">Description</label>
             <textarea id="descripcion" name="descripcion"><?php echo $cancion['descripcion']; ?></textarea>
 
             <!-- Botón de submit -->
@@ -148,5 +155,28 @@ if (isset($_GET['id'])) {
         </form>
     </div>
 
+    <script>
+                // Actualizar el texto cuando se selecciona un nuevo archivo de música
+                document.getElementById('musica').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-music');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });
+
+        // Actualizar el texto cuando se selecciona una nueva carátula
+        document.getElementById('caratula').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-caratula');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });
+
+        // Actualizar el texto cuando se selecciona un nuevo archivo de texto
+        document.getElementById('textFile').addEventListener('change', function() {
+            const selectedFile = this.files[0];
+            const displaySpan = document.getElementById('current-text');
+            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+        });
+
+    </script>
 </body>
 </html>
