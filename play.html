@@ -17,7 +17,7 @@
     <div id="playlist-container">
         <section id="play-song-list">
             <!-- Ejemplo de canción 1 -->
-            <div class="play-song-item">
+            <div class="play-song-item" data-url="modal.html">
                 <img src="../uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
                 <div class="play-song-info">
                     <h2>Viva la vida</h2>
@@ -38,11 +38,11 @@
                         <i class="fas fa-play"></i> <!-- Icono de reproducción -->
                     </button>
                 </div>
-                <audio class="song-audio" src="php/uploads/Viva la Vida - Coldplay.mp3"></audio>
+                <audio class="song-audio" src="/uploads/Viva la Vida - Coldplay.mp3"></audio>
             </div>
 
             <!-- Ejemplo de canción 2 -->
-            <div class="play-song-item">
+            <div class="play-song-item" data-url="modal.html">
                 <img src="../uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
                 <div class="play-song-info">
                     <h2>The Real Slim Shady</h2>
@@ -63,7 +63,7 @@
                         <i class="fas fa-play"></i> <!-- Icono de reproducción -->
                     </button>
                 </div>
-                <audio class="song-audio" src="php/uploads/Eminem - The Real Slim Shady.mp3"></audio>
+                <audio class="song-audio" src="/uploads/Eminem - The Real Slim Shady.mp3"></audio>
             </div>
         </section>
     </div>
@@ -240,7 +240,7 @@
             })
             .catch(error => console.error('Error al eliminar la canción:', error));
             }
-
+    
     </script>
 </body>
 </html>
