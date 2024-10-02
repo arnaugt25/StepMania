@@ -17,8 +17,8 @@
     <div id="playlist-container">
         <section id="play-song-list">
             <!-- Ejemplo de canción 1 -->
-            <div class="play-song-item" data-url="modal.html">
-                <img src="../uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
+            <div class="play-song-item" data-url="nombre.html">
+                <img src="uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
                 <div class="play-song-info">
                     <h2>Viva la vida</h2>
                     <p>by Coldplay</p>
@@ -42,8 +42,8 @@
             </div>
 
             <!-- Ejemplo de canción 2 -->
-            <div class="play-song-item" data-url="modal.html">
-                <img src="../uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
+            <div class="play-song-item" data-url="nombre.html">
+                <img src="uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
                 <div class="play-song-info">
                     <h2>The Real Slim Shady</h2>
                     <p>by Eminem</p>
@@ -125,8 +125,15 @@
             const playButton = item.querySelector('.play-button');
             const audioElement = item.querySelector('.song-audio');
 
-            playButton.addEventListener('click', () => {
+            // Evento para reproducir la canción
+            playButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Evitar que el clic en el botón se propague al cuadro de la canción
                 togglePlay(audioElement, playButton);
+            });
+
+            // Evento para redirigir a nombre.html cuando se haga clic en el cuadro de la canción
+            item.addEventListener('click', () => {
+                window.location.href = item.getAttribute('data-url'); // Redirigir a nombre.html
             });
         });
 
@@ -140,6 +147,7 @@
                     // Crear el contenedor principal con la clase adecuada
                     const songItem = document.createElement('div');
                     songItem.classList.add('play-song-item');  // Aplicar la clase CSS
+                    songItem.setAttribute('data-url', 'nombre.html'); // Añadir el enlace de nombre
 
                     // Añadir la imagen de la carátula con la clase adecuada
                     const caratula = document.createElement('img');
@@ -187,7 +195,8 @@
                     const deleteButton = document.createElement('button');
                     deleteButton.innerHTML = '<i class="fa-solid fa-x"></i>'; // Icono de eliminar
                     deleteButton.classList.add('delete-button');
-                    deleteButton.addEventListener('click', () => {
+                    deleteButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Evitar que el clic en el botón se propague
                         eliminarCancion(index);
                     });
 
@@ -195,7 +204,8 @@
                     const editButton = document.createElement('button');
                     editButton.innerHTML = '<i class="fas fa-edit"></i>'; // Icono de edición
                     editButton.classList.add('edit-button');
-                    editButton.addEventListener('click', () => {
+                    editButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Evitar que el clic en el botón se propague
                         editarCancion(cancion, index);
                     });
 
@@ -209,7 +219,8 @@
                     audioElement.classList.add('song-audio');
                     audioElement.src = cancion.archivoMusica;  // Usa la ruta del archivo de música desde el JSON
 
-                    playButton.addEventListener('click', () => {
+                    playButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Evitar que el clic en el botón se propague
                         togglePlay(audioElement, playButton);
                     });
 
@@ -229,18 +240,6 @@
                 });
             })
             .catch(error => console.error('Error al cargar el JSON:', error));
-            function eliminarCancion(index) {
-            fetch(`php/eliminar.php?index=${index}`, {
-                method: 'GET',
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-                location.reload();  // Recargar la página para reflejar los cambios
-            })
-            .catch(error => console.error('Error al eliminar la canción:', error));
-            }
-    
     </script>
 </body>
 </html>
