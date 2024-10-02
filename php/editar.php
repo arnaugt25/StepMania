@@ -129,7 +129,7 @@ if (isset($_GET['id'])) {
             
                 <!-- Campo de selección de carátula -->
                 <div class="file-upload">
-                    <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-file"></i></label>
+                    <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-image"></i></label>
                     <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
                     <span id="current-caratula" class="file-selected">
                     <?php echo basename($cancion['archivoCaratula']); ?>
@@ -156,8 +156,8 @@ if (isset($_GET['id'])) {
     </div>
 
     <script>
-                // Actualizar el texto cuando se selecciona un nuevo archivo de música
-                document.getElementById('musica').addEventListener('change', function() {
+        // Actualizar el texto cuando se selecciona un nuevo archivo de música
+        document.getElementById('musica').addEventListener('change', function() {
             const selectedFile = this.files[0];
             const displaySpan = document.getElementById('current-music');
             displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
@@ -174,7 +174,28 @@ if (isset($_GET['id'])) {
         document.getElementById('textFile').addEventListener('change', function() {
             const selectedFile = this.files[0];
             const displaySpan = document.getElementById('current-text');
+            const descriptionField = document.getElementById('descripcion');
             displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+
+            if (selectedFile) {
+                // Desactivar la descripción si se selecciona un archivo
+                descriptionField.disabled = true;
+            } else {
+                // Rehabilitar la descripción si no se selecciona archivo
+                descriptionField.disabled = false;
+            }
+        });
+
+        // Deshabilitar el campo de archivo si se escribe en la descripción
+        document.getElementById('descripcion').addEventListener('input', function() {
+            const textFileInput = document.getElementById('textFile');
+            if (this.value.trim().length > 0) {
+                // Desactivar la selección de archivo de texto si hay texto en la descripción
+                textFileInput.disabled = true;
+            } else {
+                // Rehabilitar la selección de archivo de texto si no hay texto en la descripción
+                textFileInput.disabled = false;
+            }
         });
 
     </script>
