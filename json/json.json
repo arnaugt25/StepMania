@@ -1,11 +1,20 @@
 [
     {
         "id": 1,
-        "titulo": "dwadad",
-        "artista": "awdadwa",
+        "titulo": "dada",
+        "artista": "adad",
         "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/wwd.mp3juice.blog - Women -Doja Cat-  Sped Up.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/descargaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png",
+        "archivoMusica": "..\/uploads\/musica\/musica_67000614b99e8.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_67000614b9c5b.png",
+        "archivoTexto": null
+    },
+    {
+        "id": 2,
+        "titulo": "adad",
+        "artista": "adad",
+        "descripcion": "",
+        "archivoMusica": "..\/uploads\/musica\/musica_6700061fd2d92.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_6700061fd2f85.png",
         "archivoTexto": null
     }
 ]
