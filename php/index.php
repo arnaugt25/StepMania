@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Leer el archivo JSON existente
-        $json_file = 'json.json';
+        $json_file = '../json/json.json';
         $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
         // Obtener el último ID
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
 
         // Redirigir a la página de éxito o de listado
-        header('Location: ../play.html');
+        header('Location: ../playlist.html');
         exit();
     } else {
         echo "No se han enviado los archivos correctamente.";

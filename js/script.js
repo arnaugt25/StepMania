@@ -45,7 +45,7 @@ caratula.src = cancion.archivoCaratula;  // Verifica que el archivo JSON tiene l
 caratula.alt = `Carátula de ${cancion.titulo}`;
 caratula.classList.add('song-img');  // Aplicar la clase CSS
 
-fetch('php/json.json')
+fetch('../json/json.json')
     .then(response => response.json())
     .then(data => {
         const selectSong = document.getElementById('selectSong');
@@ -64,7 +64,7 @@ function loadSongData() {
     const selectedIndex = selectSong.value;
     if (selectedIndex === "") return;
 
-    fetch('php/json.json')
+    fetch('../json/json.json')
         .then(response => response.json())
         .then(data => {
             const cancion = data[selectedIndex];
@@ -90,7 +90,7 @@ if (songIndex !== null) {
 
 // Cargar los datos de la canción seleccionada en el formulario
 function loadSongData(index) {
-    fetch('php/json.json')
+    fetch('../json/json.json')
         .then(response => response.json())
         .then(data => {
             const cancion = data[index];

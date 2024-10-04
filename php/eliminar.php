@@ -3,7 +3,7 @@ if (isset($_GET['index'])) {
     $index = $_GET['index'];
 
     // Leer el archivo JSON
-    $json_file = 'json.json';
+    $json_file = '../json/json.json';
     $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
     // Verificar que la canción exista

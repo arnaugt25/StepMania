@@ -2,7 +2,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Leer el archivo JSON existente
-    $json_file = 'json.json';
+    $json_file = '../json/json.json';
     $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
 
     // Obtener el ID (índice) de la canción que se va a editar
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 // Al cargar la página para editar
 if (isset($_GET['id'])) {
-    $json_file = 'json.json';
+    $json_file = '../json/json.json';
     $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
     $songId = $_GET['id'];
 
