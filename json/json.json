@@ -1,29 +1,11 @@
 [
     {
         "id": 1,
-        "titulo": "dada",
+        "titulo": "awdwad",
         "artista": "adad",
         "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_67000614b99e8.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_67000614b9c5b.png",
-        "archivoTexto": null
-    },
-    {
-        "id": 2,
-        "titulo": "adad",
-        "artista": "adad",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_6700061fd2d92.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_6700061fd2f85.png",
-        "archivoTexto": null
-    },
-    {
-        "id": 3,
-        "titulo": "Song 1",
-        "artista": "jordan",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_670016d616139.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_670016d6162db.png",
+        "archivoMusica": "..\/uploads\/musica\/musica_67001e7fb0776.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_67001e7fb0e79.png",
         "archivoTexto": null
     }
 ]
