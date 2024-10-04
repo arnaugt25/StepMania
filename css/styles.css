@@ -641,3 +641,26 @@ button[type="submit"]:hover {
 .descripcion{
     margin-top: 20px;
 }
+
+.logo-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-title-container img.logo1 {
+    margin-right: 10px;
+    width: 35px;
+    height: 35px; /* Ajustar el tamaño del logo */
+}
+
+.logo-title-container a {
+    text-decoration: none; /* Eliminar subrayado */
+    color: inherit; /* Mantener el color del título */
+    margin-bottom: 20px;
+}
+
+.logo-title-container h1 {
+    margin: 0;
+    font-size: 2rem;
+}
