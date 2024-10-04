@@ -100,11 +100,13 @@ if (isset($_GET['id'])) {
 </head>
 <body class="bodyafegir">
     <nav class="nav2">
-        <a href="../index.html"><img src="../css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
     </nav>
 
     <div class="form-container">
-        
+    <div class="logo-title-container">
+            <a href="index.html"><img src="../css/img/logo1.png" alt="Logo de StepMania" class="logo1"></a>
+            <a href="index.html"><h1>Edit Song</h1></a>
+        </div> 
         <!-- Formulario para editar la canción -->
         <form id="editSongForm" action="editar.php" method="post" enctype="multipart/form-data">
             <input type="hidden" id="songId" name="songId" value="<?php echo $songId; ?>">

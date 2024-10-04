@@ -10,10 +10,14 @@
 </head>
 <body class="bodyafegir">
     <nav class="nav2">
-        <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
+        
     </nav>
     <div class="form-container">
-        <h1>Add song</h1>
+        <!-- Contenedor para alinear logo y título -->
+        <div class="logo-title-container">
+            <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo1"></a>
+            <a href="index.html"><h1>Add song</h1></a>
+        </div>
 
         <form id="addSongForm" action="php/index.php" method="post" enctype="multipart/form-data">
             <!-- Título de la canción --> 
@@ -27,14 +31,14 @@
                 <!-- Campo de selección de música -->
                 <div class="file-upload">
                     <label for="musica" class="custom-file-label">Select music  <i class="fa-solid fa-music"></i></label>
-                    <input type="file" id="musica" name="musica" accept="audio/*" class="file-input">
+                    <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
                     <span id="selected-music" class="file-selected">No file</span>
                 </div>
             
                 <!-- Campo de selección de carátula -->
                 <div class="file-upload">
                     <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-image"></i></label>
-                    <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input">
+                    <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
                     <span id="selected-caratula" class="file-selected">No file</span>
                 </div>
             
@@ -56,6 +60,28 @@
     </div>
 
     <script>
+        // Referencias a los campos de descripción y archivo de texto
+        const descripcionField = document.getElementById('descripcion');
+        const textFileField = document.getElementById('textFile');
+
+        // Deshabilitar uno cuando el otro tiene contenido
+        descripcionField.addEventListener('input', function() {
+            if (this.value.trim() !== "") {
+                textFileField.disabled = true; // Deshabilitar el archivo
+                textFileField.disabled = true; // Deshabilitar el archivo de texto si hay contenido en la descripción
+            } else {
+                textFileField.disabled = false; // Habilitar el archivo de texto si la descripción está vacía
+            }
+        });
+
+        textFileField.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                descripcionField.disabled = true; // Deshabilitar la descripción si se selecciona un archivo de texto
+            } else {
+                descripcionField.disabled = false; // Habilitar la descripción si no se selecciona ningún archivo
+            }
+        });
+
         // Actualizar el texto cuando se selecciona un archivo
         document.getElementById('musica').addEventListener('change', function() {
             document.getElementById('selected-music').textContent = this.files.length > 0 ? this.files[0].name : 'No hay archivo seleccionado';
