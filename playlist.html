@@ -240,7 +240,29 @@
 
                     // Añadir la nueva canción al listado
                     songList.appendChild(songItem);
-                });
+
+                //     document.querySelectorAll('.play-song-item').forEach(item => {
+                //     const playButton = item.querySelector('.play-button');
+                //     const audioElement = item.querySelector('.song-audio');
+
+                    
+                //     playButton.addEventListener('click', (event) => {
+                //         event.stopPropagation(); // Evitar que el clic en el botón se propague al contenedor padre
+                //         togglePlay(audioElement, playButton);
+
+                        
+                //         localStorage.setItem('selectedSong', audioElement.src);
+                //     });
+
+                //     item.addEventListener('click', (event) => {
+                //         if (!event.target.closest('.play-button')) { // Evitar redirigir cuando se haga clic en el botón de reproducción
+                //             window.location.href = item.getAttribute('data-url');
+                //         }
+                //     });
+                // });
+
+});    
+                            
             })
             .catch(error => console.error('Error al cargar el JSON:', error));
     </script>
