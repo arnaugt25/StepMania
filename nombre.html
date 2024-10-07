@@ -24,51 +24,40 @@
 </body>
 
 <script>
-    // Function to show the modal
+    // Función para mostrar el modal
     function showModal() {
         document.getElementById('myModal').style.display = 'block';
     }
 
-    // Wait for the DOM to be fully loaded, then show the modal
+    // Mostrar el modal al cargar la página
     document.addEventListener('DOMContentLoaded', function () {
         showModal();
     });
 
-    // Form submission handler
+    // Obtener el parámetro 'songUrl' de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const songUrl = urlParams.get('songUrl');
+
+    // Manejar el envío del formulario
     document.getElementById('nameForm').addEventListener('submit', function (event) {
         event.preventDefault();
-        const userName = document.getElementById('nameInput').value; // Cambia el ID aquí
+        const userName = document.getElementById('nameInput').value;
 
         if (userName === '') {
-            // Show error if the input is empty
             document.getElementById('error').style.display = 'block';
         } else {
-            // Hide the modal if the input is valid
             document.getElementById('myModal').style.display = 'none';
 
             // Guardar el nombre en localStorage
             localStorage.setItem('userName', userName);
 
-            // Redirigir a game.html
-            window.location.href = 'game.html';
+            // Redirigir a game.html pasando también la URL de la canción seleccionada
+            if (songUrl) {
+                window.location.href = `game.html?userName=${encodeURIComponent(userName)}&songUrl=${encodeURIComponent(songUrl)}`;
+            } else {
+                window.location.href = `game.html?userName=${encodeURIComponent(userName)}`;
+            }
         }
-    document.getElementById('nameForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const userName = document.getElementById('nameInput').value;
-
-    if (userName === '') {
-        document.getElementById('error').style.display = 'block';
-    } else {
-        document.getElementById('myModal').style.display = 'none';
-
-        // Guardar el nombre en localStorage
-        localStorage.setItem('userName', userName);
-
-        // Redirigir a game.html
-        window.location.href = 'game.html';
-    }
-});
-
     });
 </script>
 </html>
