@@ -7,5 +7,14 @@
         "archivoMusica": "..\/uploads\/musica\/musica_67001e7fb0776.mp3",
         "archivoCaratula": "..\/uploads\/caratula\/caratula_67001e7fb0e79.png",
         "archivoTexto": null
+    },
+    {
+        "id": 2,
+        "titulo": "adad",
+        "artista": "adad",
+        "descripcion": "",
+        "archivoMusica": "..\/uploads\/musica\/musica_67054bf62f22c.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_67054bf62f47b.png",
+        "archivoTexto": null
     }
 ]

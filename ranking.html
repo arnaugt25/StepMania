@@ -7,22 +7,52 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyranking">
-
     <div class="ranking-container">
-        <h1>Ranking</h1>
+        <h1>Ranking de Jugadores</h1>
         <table id="rankingTable">
             <thead>
                 <tr>
-                    <th>Ranking</th>
-                    <th>Player</th>
-                    <th>Score</th>
+                    <th>Posición</th>
+                    <th>Jugador</th>
+                    <th>Puntuación</th>
                 </tr>
             </thead>
-            <tbody id="leaderboardBody">
-                <!-- Las filas se añadirán dinámicamente aquí -->
+            <tbody id="rankingBody">
+                <!-- El ranking se cargará aquí -->
             </tbody>
         </table>
     </div>
+
+    <script>
+        // Cargar el ranking desde localStorage
+        const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+        const rankingBody = document.getElementById('rankingBody');
+    
+        // Obtener los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentPlayer = urlParams.get('userName');
+        const currentScore = parseInt(urlParams.get('score'));
+        const currentPosition = parseInt(urlParams.get('position'));
+    
+        // Mostrar el ranking en la tabla
+        ranking.forEach((player, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${player.name}</td>
+                <td>${player.score}</td>
+            `;
+            
+            // Resaltar la fila del jugador actual
+            if (player.name === currentPlayer && player.score === currentScore) {
+                row.style.backgroundColor = 'yellow'; // Resaltar el fondo
+                row.style.fontWeight = 'bold'; // Negrita
+            }
+    
+            rankingBody.appendChild(row);
+        });
+
+    </script>
     
 </body>
 </html>

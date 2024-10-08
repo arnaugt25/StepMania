@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Asegúrate de usar el mismo archivo de estilos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome para iconos -->
+    <title>Juego de Flechas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Iconos FontAwesome -->
 </head>
-<body class="bodyplay">
-
-    <!-- Navbar -->
+<body class="bodygame">
     <nav class="nav3">
         <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
-        <div class="titulolista"><h2>StepMania Game</h2></div>
+        <div class="titulolista"><h2 id="user-name">¡Hola!</h2></div>
     </nav>
 
-    <!-- Contenedor principal para la sección de juego -->
-    <div class="game-container">
-        <h1 id="user-name" class="game-title"></h1> <!-- Aquí se mostrará el nombre del usuario -->
-
-        <!-- Botón para reproducir la música -->
-        <button id="play-music" class="play-button">
-            <i class="fas fa-play"></i> <!-- Icono de reproducción -->
-        </button>
-        <audio id="game-music" class="song-audio"></audio> <!-- Solo el elemento de audio, sin controles visibles -->
+    <div class="bodygame">
+        <div class="game-container">
+            <!-- Botón de play a la izquierda -->
+            <button id="play-music">
+                <i class="fas fa-play"></i>
+            </button>
+    
+            <!-- Contenedor de flechas en el centro -->
+            <div id="arrows-container"></div>
+    
+            <!-- Puntaje a la derecha -->
+            <div id="score-container">
+                <p id="score">Puntuación: 0</p>
+            </div>
+        </div>
+    
+        <!-- Nombre del usuario en la parte superior izquierda -->
+        <div id="user-name">Player: Ada</div>
+    
+        <audio id="game-music"></audio>
     </div>
+    <!-- Contenedor de la música -->
+    <audio id="game-music" class="song-audio"></audio>
 
-    <script src="js/game.js"></script>
+    <script src="js/game.js"></script> <!-- Script del juego -->
 </body>
 </html>
-

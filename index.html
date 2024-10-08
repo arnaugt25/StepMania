@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stepmania</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script> <!-- Asegúrate de que el script se cargue después del DOM -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
-
 </head>
 
 <body class="bodymain">
     <header>
-      <nav class="navplay">
-        <ul>
-          <li class="tituloprincipal">StepMania</li>
-          <li><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></li>
-        </ul>
-      </nav>
+        <nav class="navplay">
+            <ul>
+                <li class="tituloprincipal">StepMania</li>
+                <li><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="center-container">
@@ -45,5 +44,47 @@
             <button onclick="window.location.href='ranking.html'">More ...</button>
         </div>
     </div>
+
+    <script>
+        // Función para cargar el ranking desde ranking.json y mostrar solo los 3 primeros
+        function loadTopRanking() {
+            const leaderboardBody = document.getElementById('leaderboardBody');
+
+            // Cargar el ranking desde ranking.json
+            fetch('json/ranking.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Ordenar los jugadores por puntuación
+                    const sortedRanking = data.sort((a, b) => b.score - a.score);
+
+                    // Mostrar solo los primeros tres jugadores
+                    const topRanking = sortedRanking.slice(0, 3);
+
+                    topRanking.forEach((player, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${player.name}</td>
+                            <td>${player.score}</td>
+                        `;
+                        leaderboardBody.appendChild(row);
+                    });
+
+                    // Si el ranking está vacío, mostrar un mensaje
+                    if (topRanking.length === 0) {
+                        const emptyRow = document.createElement('tr');
+                        emptyRow.innerHTML = `
+                            <td colspan="3">No hay jugadores en el ranking</td>
+                        `;
+                        leaderboardBody.appendChild(emptyRow);
+                    }
+                })
+                .catch(error => console.error('Error al cargar el ranking:', error));
+        }
+
+        // Llamar a la función cuando el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', loadTopRanking);
+    </script>
+
 </body>
 </html>

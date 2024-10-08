@@ -437,10 +437,6 @@
         font-family: 'CoffeeSoda', sans-serif; 
     }
 
-    /* Estilo para los campos de archivo */
-    /* input[type="file"] {
-        display: none; /* Ocultar el campo real */
-    /* }  */
 
     .custom-file-label {
         display: inline-block;
@@ -705,7 +701,7 @@
 }
 
 #play-music:hover {
-    background-color: rgb(74, 120, 5); /* Añade un fondo en hover */
+    background-color: #4a4a4a; /* Añade un fondo en hover */
 }
 
 #play-music:focus {
@@ -713,15 +709,108 @@
 }
 
 
-    .nav3 {
-        display: flex;
-        justify-content: space-between; /* Distribuir elementos: logo a la izquierda, título centrado */
-        align-items: center; /* Alinear verticalmente los elementos */
-        padding: 10px 10px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 1); /* Fondo para el nav, opcional */
-        z-index: 10;
-    }
+.nav3 {
+    display: flex;
+    justify-content: space-between; /* Distribuir elementos: logo a la izquierda, título centrado */
+    align-items: center; /* Alinear verticalmente los elementos */
+    padding: 10px 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;  
+    z-index: 10;
+}
+
+.bodygame {
+    background-image: url('img/gif.gif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+#play-music {
+    background-color: #32cd32;
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#play-music:hover {
+    background-color: #28a745;
+    transform: scale(1.1);
+}
+
+#play-music:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+#score {
+    font-size: 40px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+#user-name {
+    font-size: 50px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#arrows-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.arrow {
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.up {
+    color: #ff4747;
+}
+
+.down {
+    color: #47aaff;
+}
+
+.left {
+    color: #ffa500;
+}
+
+.right {
+    color: #32cd32;
+}
