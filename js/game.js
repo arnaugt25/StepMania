@@ -1,18 +1,13 @@
 // Obtener el nombre del usuario y la canción seleccionada desde localStorage
-const userName = localStorage.getItem('userName');
 const selectedSong = localStorage.getItem('selectedSong');
-
-if (userName) {
-    document.getElementById('user-name').textContent = `Player: ${userName}`;
-}
 
 // Seleccionar los elementos HTML
 const audioElement = document.getElementById('game-music');
 const playButton = document.getElementById('play-music');
 const scoreElement = document.getElementById('score');
-const arrowsContainer = document.getElementById('arrows-container');
+const songProgressBar = document.getElementById('song-progress-bar');
+
 let score = 0; // Puntuación inicial
-let arrowInterval; // Intervalo para generar flechas
 let gameActive = false; // Control del estado del juego
 
 if (selectedSong) {
@@ -24,7 +19,7 @@ if (selectedSong) {
 
         // Iniciar la música
         audioElement.play().catch(error => console.error('Error al reproducir la música:', error));
-        
+
         // Cambiar el icono de play a pause
         const icon = playButton.querySelector('i');
         icon.classList.remove('fa-play');
@@ -41,6 +36,9 @@ if (selectedSong) {
 
         // Deshabilitar el botón de play para que no se pueda volver a presionar
         playButton.disabled = true;
+
+        // Iniciar la actualización de la barra de progreso
+        updateSongProgress();
     }
 
     // Evento para comenzar el juego al hacer clic en el botón de play
@@ -49,66 +47,94 @@ if (selectedSong) {
     console.error("No se ha seleccionado ninguna canción.");
 }
 
-// Función para generar flechas aleatorias que caen
+// Función para actualizar la barra de progreso de la canción
+function updateSongProgress() {
+    requestAnimationFrame(() => {
+        if (audioElement.duration) {
+            const progress = (audioElement.currentTime / audioElement.duration) * 100;
+            songProgressBar.style.width = `${progress}%`;
+        }
+        updateSongProgress();
+    });
+}
+
+// Función para generar flechas aleatorias que caen en las columnas correspondientes
 function generateArrows() {
-    const arrowDirections = ['up', 'down', 'left', 'right']; // Direcciones posibles
-    arrowInterval = setInterval(() => {
+    const arrowDirections = ['column-up', 'column-down', 'column-left', 'column-right']; // Columnas posibles
+    function generate() {
         if (!gameActive) return; // Detener si el juego no está activo
-        const arrow = document.createElement('div');
+
         const randomDirection = arrowDirections[Math.floor(Math.random() * arrowDirections.length)];
-        arrow.classList.add('arrow', randomDirection);
+        const column = document.getElementById(randomDirection);
+
+        const arrow = document.createElement('div');
+        arrow.classList.add('arrow');
         arrow.textContent = getArrowSymbol(randomDirection);
-        arrowsContainer.appendChild(arrow);
+        column.appendChild(arrow);
         animateArrow(arrow);
-    }, 1000); // Cada segundo se genera una nueva flecha
+
+        setTimeout(generate, 1000); // Generar flechas cada segundo
+    }
+    generate();
 }
 
 // Función para obtener el símbolo de flecha
 function getArrowSymbol(direction) {
     switch (direction) {
-        case 'up': return '↑';
-        case 'down': return '↓';
-        case 'left': return '←';
-        case 'right': return '→';
+        case 'column-up': return '↑';
+        case 'column-down': return '↓';
+        case 'column-left': return '←';
+        case 'column-right': return '→';
         default: return '';
     }
 }
 
-// Función para animar las flechas que caen
+// Función para animar las flechas que caen usando requestAnimationFrame
 function animateArrow(arrow) {
-    let topPosition = 0;  // Comenzar desde la parte superior
-    const arrowAnimation = setInterval(() => {
-        if (!gameActive) {
-            clearInterval(arrowAnimation); // Detener animación si el juego no está activo
-            return;
-        }
-        topPosition += 5;  // Velocidad de caída
-        arrow.style.transform = `translateY(${topPosition}px)`;  // Mover hacia abajo
+    let topPosition = 0;
+    function moveArrow() {
+        if (!gameActive) return; // Detener animación si el juego no está activo
+
+        topPosition += 5;
+        arrow.style.top = topPosition + 'px';
 
         // Si la flecha sale del contenedor, detener la animación y eliminar la flecha
-        if (topPosition > arrowsContainer.offsetHeight) {
-            clearInterval(arrowAnimation);
+        if (topPosition < arrow.parentElement.offsetHeight) {
+            requestAnimationFrame(moveArrow); // Continuar la animación
+        } else {
             arrow.remove(); // Eliminar la flecha cuando sale del contenedor
         }
-    }, 20);  // Intervalo de 20ms para una animación fluida
+    }
+    requestAnimationFrame(moveArrow);
 }
 
 // Función para detectar teclas del usuario
 function detectKeyPress() {
     window.addEventListener('keydown', (event) => {
         const key = event.key;
-        const arrow = arrowsContainer.querySelector('.arrow');
+        let targetColumn;
+
+        switch (key) {
+            case 'ArrowUp':
+                targetColumn = 'column-up';
+                break;
+            case 'ArrowDown':
+                targetColumn = 'column-down';
+                break;
+            case 'ArrowLeft':
+                targetColumn = 'column-left';
+                break;
+            case 'ArrowRight':
+                targetColumn = 'column-right';
+                break;
+            default:
+                return;
+        }
+
+        const arrow = document.querySelector(`#${targetColumn} .arrow`);
         if (arrow) {
-            const direction = arrow.classList[1]; // Obtener la dirección de la flecha
-            if (
-                (key === 'ArrowUp' && direction === 'up') ||
-                (key === 'ArrowDown' && direction === 'down') ||
-                (key === 'ArrowLeft' && direction === 'left') ||
-                (key === 'ArrowRight' && direction === 'right')
-            ) {
-                arrow.remove(); // Eliminar la flecha si es correcta
-                updateScore(10); // Añadir puntos
-            }
+            arrow.remove(); // Eliminar la flecha si es correcta
+            updateScore(10); // Añadir puntos
         }
     });
 }
@@ -122,55 +148,10 @@ function updateScore(points) {
 // Función para terminar el juego cuando la música se acaba
 function endGame() {
     gameActive = false; // Marcar que el juego ha terminado
-    clearInterval(arrowInterval); // Detener la generación de flechas
 
     // Eliminar todas las flechas que queden en pantalla
-    const arrows = document.querySelectorAll('.arrow');
-    arrows.forEach(arrow => arrow.remove());
+    document.querySelectorAll('.arrow').forEach(arrow => arrow.remove());
 
-    const userName = localStorage.getItem('userName');
-    const score = parseInt(document.getElementById('score').textContent); // Obtener el puntaje final
-
-    // Guardar el nombre y la puntuación en una cookie durante 7 días
-
-    // Enviar los datos al servidor mediante una solicitud AJAX
-fetch('php/save_ranking.php', {  // Cambia la ruta a 'php/save_ranking.php'
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        name: userName,
-        score: score
-    })
-})
-.then(response => response.json())
-.then(data => {
-    // Redirigir al ranking con la posición del jugador
-    window.location.href = `ranking.html?userName=${encodeURIComponent(userName)}&score=${score}&position=${data.position}`;
-})
-.catch(error => console.error('Error al guardar el ranking:', error));
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener la cookie con la información del jugador
-    const playerInfo = getCookie('playerInfo');
-
-    if (playerInfo) {
-        const playerData = JSON.parse(playerInfo); // Convertir de JSON a objeto
-        const userName = playerData.name;
-        const score = playerData.score;
-
-        // Mostrar la información en la tabla de ranking
-        const rankingBody = document.getElementById('rankingBody');
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>1</td>
-            <td>${userName}</td>
-            <td>${score}</td>
-        `;
-        rankingBody.appendChild(row);
-    } else {
-        console.log('No se encontró información del jugador en las cookies.');
-    }
-});
-
+    // Redirigir al ranking
+    window.location.href = `ranking.html?userName=${encodeURIComponent(localStorage.getItem('userName'))}&score=${score}`;
 }

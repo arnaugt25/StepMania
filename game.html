@@ -3,40 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Flechas</title>
+    <title>StepMania - Juego</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
+
 </head>
 <body class="bodygame">
-    <nav class="nav3">
-        <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
-        <div class="titulolista"><h2 id="user-name">¡Hola!</h2></div>
-    </nav>
-
-    <div class="bodygame">
-        <div class="game-container">
-            <!-- Botón de play a la izquierda -->
-            <button id="play-music">
-                <i class="fas fa-play"></i>
-            </button>
-    
-            <!-- Contenedor de flechas en el centro -->
-            <div id="arrows-container"></div>
-    
-            <!-- Puntaje a la derecha -->
-            <div id="score-container">
-                <p id="score">Puntuación: 0</p>
-            </div>
-        </div>
-    
-        <!-- Nombre del usuario en la parte superior izquierda -->
-        <div id="user-name">Player: Ada</div>
-    
-        <audio id="game-music"></audio>
+    <div class="nombre">
+        <h1>StepMania - Juego</h1>
     </div>
-    <!-- Contenedor de la música -->
-    <audio id="game-music" class="song-audio"></audio>
 
-    <script src="js/game.js"></script> <!-- Script del juego -->
+    <button id="play-music" class="play-button2"><i class="fa fa-play"></i> Play</button>
+
+    <div class="game-container">
+        <!-- Puntuación -->
+        <div class="score" id="score">0</div>
+
+        <!-- Contenedor del juego de flechas -->
+        <div id="arrows-container">
+            <div class="arrow-column" id="column-up"></div>
+            <div class="arrow-column" id="column-down"></div>
+            <div class="arrow-column" id="column-left"></div>
+            <div class="arrow-column" id="column-right"></div>
+        </div>
+
+        <!-- Elemento de audio oculto -->
+        <audio id="game-music" style="display:none;"></audio>
+    </div>
+
+    <!-- Barra de progreso de la canción -->
+    <div class="song-progress-container">
+        <div id="song-progress-bar" class="song-progress-bar"></div>
+    </div>
+
+    <!-- Script para manejar el juego -->
+    <script>
+        // Obtener el nombre del usuario y la canción seleccionada desde localStorage
+        const selectedSong = localStorage.getItem('selectedSong');
+
+        // Seleccionar los elementos HTML
+        const audioElement = document.getElementById('game-music');
+        const playButton = document.getElementById('play-music');
+        const scoreElement = document.getElementById('score');
+        const songProgressBar = document.getElementById('song-progress-bar');
+
+        let score = 0; // Puntuación inicial
+        let arrowInterval; // Intervalo para generar flechas
+        let gameActive = false; // Control del estado del juego
+
+        if (selectedSong) {
+            audioElement.src = selectedSong;
+
+            // Función para empezar el juego y la música
+            function startGame() {
+                gameActive = true; // Marcar que el juego está activo
+
+                // Iniciar la música
+                audioElement.play().catch(error => console.error('Error al reproducir la música:', error));
+
+                // Cambiar el icono de play a pause
+                const icon = playButton.querySelector('i');
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+
+                // Generar flechas que caen
+                generateArrows();
+
+                // Detectar las teclas del usuario
+                detectKeyPress();
+
+                // Terminar el juego cuando la música acabe
+                audioElement.addEventListener('ended', endGame);
+
+                // Deshabilitar el botón de play para que no se pueda volver a presionar
+                playButton.disabled = true;
+
+                // Iniciar la actualización de la barra de progreso
+                updateSongProgress();
+            }
+
+            // Evento para comenzar el juego al hacer clic en el botón de play
+            playButton.addEventListener('click', startGame);
+        } else {
+            console.error("No se ha seleccionado ninguna canción.");
+        }
+
+        // Función para actualizar la barra de progreso de la canción
+        function updateSongProgress() {
+            setInterval(() => {
+                if (audioElement.duration) {
+                    const progress = (audioElement.currentTime / audioElement.duration) * 100;
+                    songProgressBar.style.width = `${progress}%`;
+                }
+            }, 500);
+        }
+
+        // Función para generar flechas aleatorias que caen en las columnas correspondientes
+        function generateArrows() {
+            const arrowDirections = ['column-up', 'column-down', 'column-left', 'column-right']; // Columnas posibles
+            arrowInterval = setInterval(() => {
+                if (!gameActive) return; // Detener si el juego no está activo
+                const randomDirection = arrowDirections[Math.floor(Math.random() * arrowDirections.length)];
+                const column = document.getElementById(randomDirection);
+
+                const arrow = document.createElement('div');
+                arrow.classList.add('arrow');
+                arrow.textContent = getArrowSymbol(randomDirection);
+                column.appendChild(arrow);
+                animateArrow(arrow);
+            }, 1000); // Cada segundo se genera una nueva flecha
+        }
+
+        // Función para obtener el símbolo de flecha
+        function getArrowSymbol(direction) {
+            switch (direction) {
+                case 'column-up': return '↑';
+                case 'column-down': return '↓';
+                case 'column-left': return '←';
+                case 'column-right': return '→';
+                default: return '';
+            }
+        }
+
+        // Función para animar las flechas que caen
+        function animateArrow(arrow) {
+            let topPosition = 0;
+            const arrowAnimation = setInterval(() => {
+                if (!gameActive) {
+                    clearInterval(arrowAnimation); // Detener animación si el juego no está activo
+                    return;
+                }
+                topPosition += 5;
+                arrow.style.top = topPosition + 'px';
+
+                // Si la flecha sale del contenedor, detener la animación y eliminar la flecha
+                if (topPosition > arrow.parentElement.offsetHeight) {
+                    clearInterval(arrowAnimation);
+                    arrow.remove();
+                }
+            }, 20);
+        }
+
+        // Función para detectar teclas del usuario
+        function detectKeyPress() {
+            window.addEventListener('keydown', (event) => {
+                const key = event.key;
+                let targetColumn;
+
+                switch (key) {
+                    case 'ArrowUp':
+                        targetColumn = 'column-up';
+                        break;
+                    case 'ArrowDown':
+                        targetColumn = 'column-down';
+                        break;
+                    case 'ArrowLeft':
+                        targetColumn = 'column-left';
+                        break;
+                    case 'ArrowRight':
+                        targetColumn = 'column-right';
+                        break;
+                    default:
+                        return;
+                }
+
+                const arrow = document.querySelector(`#${targetColumn} .arrow`);
+                if (arrow) {
+                    arrow.remove(); // Eliminar la flecha si es correcta
+                    updateScore(10); // Añadir puntos
+                }
+            });
+        }
+
+        // Función para actualizar la puntuación
+        function updateScore(points) {
+            score += points;
+            scoreElement.textContent = score;
+        }
+
+        // Función para terminar el juego cuando la música se acaba
+        function endGame() {
+            gameActive = false; // Marcar que el juego ha terminado
+            clearInterval(arrowInterval); // Detener la generación de flechas
+
+            // Eliminar todas las flechas que queden en pantalla
+            document.querySelectorAll('.arrow').forEach(arrow => arrow.remove());
+
+            // Redirigir al ranking
+            window.location.href = `ranking.html?userName=${encodeURIComponent(localStorage.getItem('userName'))}&score=${score}`;
+        }
+    </script>
+
 </body>
 </html>

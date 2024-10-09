@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranking</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Agregar Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bodyranking">
     <nav class="nav3">
@@ -38,6 +40,9 @@
                 const ranking = await response.json();
                 const rankingBody = document.getElementById('rankingBody');
 
+                // Ordenar los jugadores por puntuación de mayor a menor
+                ranking.sort((a, b) => b.score - a.score);
+
                 // Obtener los parámetros de la URL
                 const urlParams = new URLSearchParams(window.location.search);
                 const currentPlayer = urlParams.get('userName');
@@ -46,8 +51,17 @@
                 // Mostrar el ranking en la tabla
                 ranking.forEach((player, index) => {
                     const row = document.createElement('tr');
+                    
+                    // Si es el top 1, mostrar solo el ícono de trofeo en la columna de ranking
+                    let rankingText;
+                    if (index === 0) {
+                        rankingText = `<i class="fa-solid fa-trophy" style="color: gold;"></i>`; // Solo el trofeo dorado
+                    } else {
+                        rankingText = index + 1; // Mostrar el número de ranking para otros jugadores
+                    }
+
                     row.innerHTML = `
-                        <td>${index + 1}</td>
+                        <td>${rankingText}</td>
                         <td>${player.name}</td>
                         <td>${player.score}</td>
                     `;
