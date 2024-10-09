@@ -2,4 +2,4 @@
 /uploads/
 
 # Ignorar todos los archivos JSON
-*.json
+/json/
