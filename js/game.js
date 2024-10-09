@@ -12,12 +12,16 @@ const playButton = document.getElementById('play-music');
 const scoreElement = document.getElementById('score');
 const arrowsContainer = document.getElementById('arrows-container');
 let score = 0; // Puntuación inicial
+let arrowInterval; // Intervalo para generar flechas
+let gameActive = false; // Control del estado del juego
 
 if (selectedSong) {
     audioElement.src = selectedSong;
 
     // Función para empezar el juego y la música
     function startGame() {
+        gameActive = true; // Marcar que el juego está activo
+
         // Iniciar la música
         audioElement.play().catch(error => console.error('Error al reproducir la música:', error));
         
@@ -48,7 +52,8 @@ if (selectedSong) {
 // Función para generar flechas aleatorias que caen
 function generateArrows() {
     const arrowDirections = ['up', 'down', 'left', 'right']; // Direcciones posibles
-    setInterval(() => {
+    arrowInterval = setInterval(() => {
+        if (!gameActive) return; // Detener si el juego no está activo
         const arrow = document.createElement('div');
         const randomDirection = arrowDirections[Math.floor(Math.random() * arrowDirections.length)];
         arrow.classList.add('arrow', randomDirection);
@@ -71,15 +76,21 @@ function getArrowSymbol(direction) {
 
 // Función para animar las flechas que caen
 function animateArrow(arrow) {
-    let topPosition = 0;
-    const arrowInterval = setInterval(() => {
-        topPosition += 5;
-        arrow.style.top = topPosition + 'px';
-        if (topPosition > arrowsContainer.offsetHeight) {
-            clearInterval(arrowInterval);
-            arrow.remove();
+    let topPosition = 0;  // Comenzar desde la parte superior
+    const arrowAnimation = setInterval(() => {
+        if (!gameActive) {
+            clearInterval(arrowAnimation); // Detener animación si el juego no está activo
+            return;
         }
-    }, 20);
+        topPosition += 5;  // Velocidad de caída
+        arrow.style.transform = `translateY(${topPosition}px)`;  // Mover hacia abajo
+
+        // Si la flecha sale del contenedor, detener la animación y eliminar la flecha
+        if (topPosition > arrowsContainer.offsetHeight) {
+            clearInterval(arrowAnimation);
+            arrow.remove(); // Eliminar la flecha cuando sale del contenedor
+        }
+    }, 20);  // Intervalo de 20ms para una animación fluida
 }
 
 // Función para detectar teclas del usuario
@@ -108,27 +119,58 @@ function updateScore(points) {
     scoreElement.textContent = score;
 }
 
-// Función para terminar el juego
+// Función para terminar el juego cuando la música se acaba
 function endGame() {
+    gameActive = false; // Marcar que el juego ha terminado
+    clearInterval(arrowInterval); // Detener la generación de flechas
+
+    // Eliminar todas las flechas que queden en pantalla
+    const arrows = document.querySelectorAll('.arrow');
+    arrows.forEach(arrow => arrow.remove());
+
     const userName = localStorage.getItem('userName');
     const score = parseInt(document.getElementById('score').textContent); // Obtener el puntaje final
 
-    // Guardar el puntaje en el archivo JSON
-    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-    
-    // Agregar al jugador actual al ranking
-    ranking.push({ name: userName, score: score });
-    
-    // Ordenar el ranking de mayor a menor puntuación
-    ranking.sort((a, b) => b.score - a.score);
-    
-    // Guardar el ranking actualizado en localStorage
-    localStorage.setItem('ranking', JSON.stringify(ranking));
+    // Guardar el nombre y la puntuación en una cookie durante 7 días
 
-    // Obtener la posición del jugador en el ranking
-    const position = ranking.findIndex(player => player.name === userName && player.score === score) + 1;
-
+    // Enviar los datos al servidor mediante una solicitud AJAX
+fetch('php/save_ranking.php', {  // Cambia la ruta a 'php/save_ranking.php'
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: userName,
+        score: score
+    })
+})
+.then(response => response.json())
+.then(data => {
     // Redirigir al ranking con la posición del jugador
-    window.location.href = `ranking.html?userName=${encodeURIComponent(userName)}&score=${score}&position=${position}`;
-}
+    window.location.href = `ranking.html?userName=${encodeURIComponent(userName)}&score=${score}&position=${data.position}`;
+})
+.catch(error => console.error('Error al guardar el ranking:', error));
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener la cookie con la información del jugador
+    const playerInfo = getCookie('playerInfo');
 
+    if (playerInfo) {
+        const playerData = JSON.parse(playerInfo); // Convertir de JSON a objeto
+        const userName = playerData.name;
+        const score = playerData.score;
+
+        // Mostrar la información en la tabla de ranking
+        const rankingBody = document.getElementById('rankingBody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>1</td>
+            <td>${userName}</td>
+            <td>${score}</td>
+        `;
+        rankingBody.appendChild(row);
+    } else {
+        console.log('No se encontró información del jugador en las cookies.');
+    }
+});
+
+}
