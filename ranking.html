@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bodyranking">
+    <nav class="nav3">
+        <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
+    </nav>
     <div class="ranking-container">
         <h1>Ranking de Jugadores</h1>
         <table id="rankingTable">
             <thead>
                 <tr>
-                    <th>Posición</th>
+                    <th>Ranking</th>
                     <th>Jugador</th>
                     <th>Puntuación</th>
                 </tr>
@@ -24,34 +27,54 @@
     </div>
 
     <script>
-        // Cargar el ranking desde localStorage
-        const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-        const rankingBody = document.getElementById('rankingBody');
-    
-        // Obtener los parámetros de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentPlayer = urlParams.get('userName');
-        const currentScore = parseInt(urlParams.get('score'));
-        const currentPosition = parseInt(urlParams.get('position'));
-    
-        // Mostrar el ranking en la tabla
-        ranking.forEach((player, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${player.name}</td>
-                <td>${player.score}</td>
-            `;
-            
-            // Resaltar la fila del jugador actual
-            if (player.name === currentPlayer && player.score === currentScore) {
-                row.style.backgroundColor = 'yellow'; // Resaltar el fondo
-                row.style.fontWeight = 'bold'; // Negrita
-            }
-    
-            rankingBody.appendChild(row);
-        });
+        // Función para cargar el ranking desde el archivo JSON
+        async function loadRanking() {
+            try {
+                const response = await fetch('json/ranking.json'); // Ruta al archivo JSON
+                if (!response.ok) {
+                    throw new Error('Error al cargar el archivo JSON');
+                }
 
+                const ranking = await response.json();
+                const rankingBody = document.getElementById('rankingBody');
+
+                // Obtener los parámetros de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentPlayer = urlParams.get('userName');
+                const currentScore = parseInt(urlParams.get('score'));
+
+                // Mostrar el ranking en la tabla
+                ranking.forEach((player, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${player.name}</td>
+                        <td>${player.score}</td>
+                    `;
+
+                    // Resaltar la fila del jugador actual
+                    if (player.name === currentPlayer && player.score === currentScore) {
+                        row.style.backgroundColor = 'yellow'; // Resaltar el fondo
+                        row.style.fontWeight = 'bold'; // Negrita
+                    }
+
+                    rankingBody.appendChild(row);
+                });
+
+                // Si no hay jugadores en el ranking
+                if (ranking.length === 0) {
+                    const noPlayersRow = document.createElement('tr');
+                    noPlayersRow.innerHTML = `<td colspan="3">No hay jugadores en el ranking</td>`;
+                    rankingBody.appendChild(noPlayersRow);
+                }
+
+            } catch (error) {
+                console.error('Error al cargar el ranking:', error);
+            }
+        }
+
+        // Cargar el ranking cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', loadRanking);
     </script>
     
 </body>
