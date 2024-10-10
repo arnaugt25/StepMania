@@ -690,10 +690,6 @@
     justify-content: space-between;
 }
 
-header {
-    margin-top: 20px;
-}
-
 .game-container {
     width: 60%;
     max-width: 500px;

@@ -16,14 +16,5 @@
         "archivoMusica": "..\/uploads\/musica\/musica_67054bf62f22c.mp3",
         "archivoCaratula": "..\/uploads\/caratula\/caratula_67054bf62f47b.png",
         "archivoTexto": null
-    },
-    {
-        "id": 3,
-        "titulo": "adad",
-        "artista": "adadada",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_67068a9f56364.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_67068a9f56541.png",
-        "archivoTexto": null
     }
 ]

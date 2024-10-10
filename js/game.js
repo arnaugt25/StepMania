@@ -152,6 +152,36 @@ function endGame() {
     // Eliminar todas las flechas que queden en pantalla
     document.querySelectorAll('.arrow').forEach(arrow => arrow.remove());
 
-    // Redirigir al ranking
-    window.location.href = `ranking.html?userName=${encodeURIComponent(localStorage.getItem('userName'))}&score=${score}`;
+    // Obtener el nombre del usuario desde localStorage
+    const userName = localStorage.getItem('userName');
+
+    // Llamar a la función para guardar el ranking
+    saveRanking(userName, score);
 }
+
+// Función para guardar el ranking
+function saveRanking(userName, score) {
+    const data = { name: userName, score: score };
+
+    fetch('php/save_ranking.php', { // Asegúrate de que la ruta sea correcta
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Respuesta del servidor:', result);
+        if (result.status === 'success') {
+            // Redirigir al ranking después de guardar
+            window.location.href = `ranking.html?userName=${encodeURIComponent(userName)}&score=${score}`;
+        } else {
+            console.error('Error al guardar el ranking:', result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al guardar el ranking:', error);
+    });
+}
+    
