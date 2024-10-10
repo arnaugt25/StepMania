@@ -78,7 +78,7 @@
                     // Crear el contenedor principal con la clase adecuada
                     const songItem = document.createElement('div');
                     songItem.classList.add('play-song-item');  // Aplicar la clase CSS
-                    songItem.setAttribute('data-url', 'nombre.html'); // Añadir el enlace de nombre
+                    songItem.setAttribute('data-url', 'game.html'); // Añadir el enlace de nombre
 
                     // Añadir la imagen de la carátula con la clase adecuada
                     const caratula = document.createElement('img');

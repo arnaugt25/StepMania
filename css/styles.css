@@ -773,3 +773,6 @@
 .play-button2:disabled {
     background: #999;
 }
+.game-container, #play-music, .song-progress-container, .score {
+    display: none; /* Ocultar inicialmente */
+}
