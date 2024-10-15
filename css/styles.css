@@ -1,11 +1,11 @@
     @font-face {
-        font-family: 'CoffeeSoda';
-        src: url('font/Coffee\ Soda.ttf') format('truetype');
+        font-family: 'coffeesoda';
+        src: url('font/coffee\ soda.ttf') format('truetype');
         font-style: normal;
     }
 
     body, h1, h2, h3, h4, h5, h6, ul, li {
-        font-family: 'CoffeeSoda', sans-serif;
+        font-family: 'coffeesoda', sans-serif;
     }
     /* Asegura que el fondo esté fijo y no se desplace */
     .bodymain {
@@ -124,7 +124,7 @@
     }
 
     .center-container button {
-        font-family: 'CoffeeSoda', sans-serif;
+        font-family: 'coffeesoda', sans-serif;
         font-size: 45px; /* Puedes ajustar el tamaño a lo que prefieras */
     }
     .center-container {
@@ -135,7 +135,7 @@
         padding-top: 50px;
         background-color: transparent; 
         border: none;
-        font-family: 'CoffeeSoda', sans-serif; /* Aplica la fuente a los botones */
+        font-family: 'coffeesoda', sans-serif; /* Aplica la fuente a los botones */
         font-size: 20px; /* Ajusta el tamaño según prefieras */
     }
 
@@ -150,7 +150,7 @@
         margin: 10px 0;
         width: fit-content;
         height: fit-content;
-        font-family: 'CoffeeSoda', sans-serif;
+        font-family: 'coffeesoda', sans-serif;
     }
 
     button:hover {
@@ -209,7 +209,7 @@
     .ver-mas-button {
         margin-top: 20px; 
         text-align: center; 
-        font-family: 'CoffeeSoda', sans-serif;
+        font-family: 'coffeesoda', sans-serif;
     }
 
     .ver-mas-button button {
@@ -221,7 +221,7 @@
         cursor: pointer;
         border-radius: 5px;
         transition: background-color 0.3s;
-        font-family: 'CoffeeSoda', sans-serif;
+        font-family: 'coffeesoda', sans-serif;
     }
 
     .ver-mas-button button:hover {
@@ -434,7 +434,7 @@
         resize: vertical;
         background-color: #333;
         color: #fff;
-        font-family: 'CoffeeSoda', sans-serif; 
+        font-family: 'coffeesoda', sans-serif; 
     }
 
 

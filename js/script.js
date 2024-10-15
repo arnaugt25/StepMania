@@ -41,7 +41,7 @@ function validarContenidoJuego(contenido) {
 }
 
 const caratula = document.createElement('img');
-caratula.src = cancion.archivoCaratula;  // Verifica que el archivo JSON tiene la ruta correcta
+caratula.src = cancion.archivoCaratula;  // Aquí ocurre el error
 caratula.alt = `Carátula de ${cancion.titulo}`;
 caratula.classList.add('song-img');  // Aplicar la clase CSS
 
