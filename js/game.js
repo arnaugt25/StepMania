@@ -1,6 +1,6 @@
 // Obtener el nombre del usuario y la canción seleccionada desde localStorage
-const selectedSong = localStorage.getItem('selectedSong');
-
+const selectedSongId = localStorage.getItem('selectedSongId');
+const selectedSong = decodeURIComponent(localStorage.getItem('selectedSong'));
 // Seleccionar los elementos HTML
 const audioElement = document.getElementById('game-music');
 const playButton = document.getElementById('play-music');
@@ -10,23 +10,44 @@ const songProgressBar = document.getElementById('song-progress-bar');
 let score = 0; // Puntuación inicial
 let gameActive = false; // Control del estado del juego
 
-if (selectedSong) {
+if (selectedSong && selectedSongId) {
     audioElement.src = selectedSong;
-
-    // Función para empezar el juego y la música
     function startGame() {
         gameActive = true; // Marcar que el juego está activo
 
-        // Iniciar la música
-        audioElement.play().catch(error => console.error('Error al reproducir la música:', error));
+        // Cargar el audio seleccionado y esperar que esté completamente cargado
+        audioElement.src = selectedSong;
+        audioElement.addEventListener('canplaythrough', () => {
+            // Iniciar la música
+            audioElement.play().catch(error => console.error('Error al reproducir la música:', error));
+        });
 
         // Cambiar el icono de play a pause
         const icon = playButton.querySelector('i');
         icon.classList.remove('fa-play');
         icon.classList.add('fa-pause');
 
-        // Generar flechas que caen
-        generateArrows();
+        // Cargar los datos de la canción desde json.json
+        fetch('../json/json.json')
+            .then(response => response.json())
+            .then(songs => {
+                // Buscar la canción por ID
+                const song = songs.find(song => song.id == selectedSongId);
+
+                if (song && song.archivoTexto) {
+                    // Si el archivo de flechas existe, cargarlo
+                    loadArrowsFromFile(song.archivoTexto).then(arrows => {
+                        if (arrows.length > 0) {
+                            scheduleArrows(arrows); // Generar flechas que caen según el archivo
+                        } else {
+                            console.error("El archivo de flechas no contiene datos válidos.");
+                        }
+                    });
+                } else {
+                    console.warn("No se encontró un archivo de flechas para esta canción o el archivoTexto es null.");
+                }
+            })
+            .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
         // Detectar las teclas del usuario
         detectKeyPress();
@@ -47,45 +68,94 @@ if (selectedSong) {
     console.error("No se ha seleccionado ninguna canción.");
 }
 
-// Función para actualizar la barra de progreso de la canción
-function updateSongProgress() {
-    requestAnimationFrame(() => {
-        if (audioElement.duration) {
-            const progress = (audioElement.currentTime / audioElement.duration) * 100;
-            songProgressBar.style.width = `${progress}%`;
-        }
-        updateSongProgress();
+// Función para cargar el archivo de flechas desde el archivo de texto
+function loadArrowsFromFile(filePath) {
+    return fetch(filePath)
+        .then(response => response.text()) // Cambiado a text() porque es un archivo de texto
+        .then(text => {
+            const arrows = parseArrowText(text); // Parsear el archivo de texto
+            if (arrows.length > 0) {
+                return arrows; // Retornar las flechas
+            } else {
+                console.error("Formato de archivo de flechas incorrecto");
+                return [];
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar el archivo de flechas:', error);
+            return [];
+        });
+}
+
+// Función para parsear el archivo de texto en flechas usando códigos y separador `#`
+function parseArrowText(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+
+    // La primera línea del archivo se maneja aquí. En este caso, la ignoramos.
+    const firstLine = lines.shift(); // Quitar la primera línea
+    console.log("Primera línea del archivo:", firstLine); // Puedes usar este valor si es necesario
+
+    // Procesar el resto de las líneas
+    return lines.map(line => {
+        const [code, startTime, endTime] = line.split('#'); // Separar usando `#`
+        const parsedCode = parseInt(code.trim(), 10); // Asegurarse de que es un número entero
+        const direction = codeToDirection(parsedCode); // Convertir el código a dirección
+        return { direction: direction, time: parseFloat(startTime) }; // Solo usamos el tiempo de inicio
+    }).filter(arrow => arrow.direction && !isNaN(arrow.time)); // Filtrar flechas inválidas
+}
+
+// Función para convertir los códigos a las direcciones de flechas
+function codeToDirection(code) {
+    switch (code) {
+        case 2190: return '←'; // Flecha izquierda
+        case 2191: return '↑'; // Flecha arriba
+        case 2192: return '↓'; // Flecha abajo
+        case 2193: return '→'; // Flecha derecha
+        default: 
+            return null;
+    }
+}
+
+// Función para programar la aparición de flechas en base a los tiempos del archivo
+function scheduleArrows(arrows) {
+    arrows.forEach(arrow => {
+        const delay = arrow.time * 1000; // Tiempo en milisegundos para sincronizar con la música
+        setTimeout(() => {
+            createArrow(arrow.direction); // Crear la flecha en la dirección especificada
+        }, delay);
     });
 }
 
-// Función para generar flechas aleatorias que caen en las columnas correspondientes
-function generateArrows() {
-    const arrowDirections = ['column-up', 'column-down', 'column-left', 'column-right']; // Columnas posibles
-    function generate() {
-        if (!gameActive) return; // Detener si el juego no está activo
+// Función para crear la flecha en la dirección correcta
+function createArrow(direction) {
+    let columnId;
+    switch (direction) {
+        case '←':
+            columnId = 'column-left'; // Columna para la flecha izquierda
+            break;
+        case '↑':
+            columnId = 'column-up'; // Columna para la flecha hacia arriba
+            break;
+        case '↓':
+            columnId = 'column-down'; // Columna para la flecha hacia abajo
+            break;
+        case '→':
+            columnId = 'column-right'; // Columna para la flecha hacia la derecha
+            break;
+        default:
+            console.error("Dirección desconocida:", direction);
+            return;
+    }
 
-        const randomDirection = arrowDirections[Math.floor(Math.random() * arrowDirections.length)];
-        const column = document.getElementById(randomDirection);
-
+    const column = document.getElementById(columnId);
+    if (column) {
         const arrow = document.createElement('div');
         arrow.classList.add('arrow');
-        arrow.textContent = getArrowSymbol(randomDirection);
+        arrow.textContent = direction;
         column.appendChild(arrow);
         animateArrow(arrow);
-
-        setTimeout(generate, 1000); // Generar flechas cada segundo
-    }
-    generate();
-}
-
-// Función para obtener el símbolo de flecha
-function getArrowSymbol(direction) {
-    switch (direction) {
-        case 'column-up': return '↑';
-        case 'column-down': return '↓';
-        case 'column-left': return '←';
-        case 'column-right': return '→';
-        default: return '';
+    } else {
+        console.error("No se encontró la columna para la dirección:", direction);
     }
 }
 
@@ -93,15 +163,16 @@ function getArrowSymbol(direction) {
 function animateArrow(arrow) {
     let topPosition = 0;
     function moveArrow() {
-        if (!gameActive) return; // Detener animación si el juego no está activo
+        if (!gameActive) return; // Detener la animación si el juego no está activo
 
         topPosition += 5;
         arrow.style.top = topPosition + 'px';
 
-        // Si la flecha sale del contenedor, detener la animación y eliminar la flecha
-        if (topPosition < arrow.parentElement.offsetHeight) {
+        // Verificar si el contenedor de la flecha existe y si la flecha está dentro del contenedor
+        if (arrow.parentElement && topPosition < arrow.parentElement.offsetHeight) {
             requestAnimationFrame(moveArrow); // Continuar la animación
         } else {
+            // Si el elemento no tiene contenedor o ha salido del área visible, eliminarlo
             arrow.remove(); // Eliminar la flecha cuando sale del contenedor
         }
     }
@@ -184,4 +255,16 @@ function saveRanking(userName, score) {
         console.error('Error al guardar el ranking:', error);
     });
 }
-    
+
+// Función para actualizar la barra de progreso de la canción
+function updateSongProgress() {
+    requestAnimationFrame(() => {
+        if (audioElement.duration) {
+            const progress = (audioElement.currentTime / audioElement.duration) * 100;
+            songProgressBar.style.width = `${progress}%`;
+        }
+        if (gameActive) {
+            updateSongProgress(); // Continuar actualizando mientras la canción esté en curso
+        }
+    });
+}

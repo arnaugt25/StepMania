@@ -2,35 +2,55 @@
 if (isset($_GET['index'])) {
     $index = $_GET['index'];
 
-    // Leer el archivo JSON
+    // Ruta al archivo JSON
     $json_file = '../json/json.json';
-    $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
+    
+    // Verificar que el archivo JSON existe
+    if (!file_exists($json_file)) {
+        echo "El archivo JSON no existe.";
+        exit;
+    }
 
-    // Verificar que la canción exista
+    // Leer el archivo JSON
+    $canciones = json_decode(file_get_contents($json_file), true);
+
+    // Verificar que la canción en el índice existe
     if (isset($canciones[$index])) {
         // Obtener los archivos asociados
         $archivoMusica = $canciones[$index]['archivoMusica'];
         $archivoCaratula = $canciones[$index]['archivoCaratula'];
         $archivoTexto = isset($canciones[$index]['archivoTexto']) ? $canciones[$index]['archivoTexto'] : null;
 
+        // Función para eliminar un archivo y verificar si se elimina correctamente
+        function eliminarArchivo($archivo) {
+            if (file_exists($archivo)) {
+                if (unlink($archivo)) {
+                    echo "Archivo eliminado: $archivo\n";
+                } else {
+                    echo "No se pudo eliminar el archivo: $archivo\n";
+                }
+            } else {
+                echo "El archivo no existe: $archivo\n";
+            }
+        }
+
         // Eliminar los archivos del servidor
-        if (file_exists($archivoMusica)) {
-            unlink($archivoMusica);  // Eliminar archivo de música
-        }
-        if (file_exists($archivoCaratula)) {
-            unlink($archivoCaratula);  // Eliminar archivo de carátula
-        }
-        if ($archivoTexto && file_exists($archivoTexto)) {
-            unlink($archivoTexto);  // Eliminar archivo de texto si existe
+        eliminarArchivo($archivoMusica);
+        eliminarArchivo($archivoCaratula);
+        if ($archivoTexto) {
+            eliminarArchivo($archivoTexto);
         }
 
         // Eliminar la canción del array
         array_splice($canciones, $index, 1);
 
         // Guardar el archivo JSON actualizado
-        file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
+        if (file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT))) {
+            echo "Canción eliminada correctamente.";
+        } else {
+            echo "Error al actualizar el archivo JSON.";
+        }
 
-        echo "Canción eliminada correctamente.";
     } else {
         echo "La canción no existe.";
     }

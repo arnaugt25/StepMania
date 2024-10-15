@@ -22,11 +22,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_dir($musica_dir)) {
                 mkdir($musica_dir, 0777, true);
             }
-            $musica_file = $musica_dir . basename($_FILES['musica']['name']);
+
+            // Crear un nombre único para el archivo de música
+            $musica_file_name = uniqid('musica_', true) . '.' . pathinfo($_FILES['musica']['name'], PATHINFO_EXTENSION);
+            $musica_file = $musica_dir . $musica_file_name;
+
             if (!move_uploaded_file($_FILES['musica']['tmp_name'], $musica_file)) {
                 echo "Error al mover el archivo de música.";
                 exit();
             }
+
+            // Eliminar el archivo de música anterior si existe
+            if (isset($canciones[$songId]['archivoMusica']) && file_exists($canciones[$songId]['archivoMusica'])) {
+                unlink($canciones[$songId]['archivoMusica']);
+            }
+
             $canciones[$songId]['archivoMusica'] = $musica_file;  // Actualiza la música si se sube un nuevo archivo
         }
 
@@ -36,11 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_dir($caratula_dir)) {
                 mkdir($caratula_dir, 0777, true);
             }
-            $caratula_file = $caratula_dir . basename($_FILES['caratula']['name']);
+
+            // Crear un nombre único para el archivo de carátula
+            $caratula_file_name = uniqid('caratula_', true) . '.' . pathinfo($_FILES['caratula']['name'], PATHINFO_EXTENSION);
+            $caratula_file = $caratula_dir . $caratula_file_name;
+
             if (!move_uploaded_file($_FILES['caratula']['tmp_name'], $caratula_file)) {
                 echo "Error al mover el archivo de carátula.";
                 exit();
             }
+
+            // Eliminar el archivo de carátula anterior si existe
+            if (isset($canciones[$songId]['archivoCaratula']) && file_exists($canciones[$songId]['archivoCaratula'])) {
+                unlink($canciones[$songId]['archivoCaratula']);
+            }
+
             $canciones[$songId]['archivoCaratula'] = $caratula_file;  // Actualiza la carátula si se sube un nuevo archivo
         }
 
@@ -50,11 +70,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_dir($text_dir)) {
                 mkdir($text_dir, 0777, true);
             }
-            $text_file = $text_dir . basename($_FILES['textFile']['name']);
+
+            // Crear un nombre único para el archivo de texto
+            $text_file_name = uniqid('texto_', true) . '.' . pathinfo($_FILES['textFile']['name'], PATHINFO_EXTENSION);
+            $text_file = $text_dir . $text_file_name;
+
             if (!move_uploaded_file($_FILES['textFile']['tmp_name'], $text_file)) {
                 echo "Error al mover el archivo de texto.";
                 exit();
             }
+
+            // Eliminar el archivo de texto anterior si existe
+            if (isset($canciones[$songId]['archivoTexto']) && file_exists($canciones[$songId]['archivoTexto'])) {
+                unlink($canciones[$songId]['archivoTexto']);
+            }
+
             $canciones[$songId]['archivoTexto'] = $text_file;  // Actualiza el archivo de texto si se sube uno nuevo
         }
 
@@ -62,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         file_put_contents($json_file, json_encode($canciones, JSON_PRETTY_PRINT));
 
         // Redirigir de vuelta a la página de reproducción
-        header('Location: ../play.html');
+        header('Location: ../playlist.html');
         exit();
         
     } else {
@@ -71,24 +101,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php
-// Al cargar la página para editar
-if (isset($_GET['id'])) {
-    $json_file = '../json/json.json';
-    $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
-    $songId = $_GET['id'];
 
-    if (isset($canciones[$songId])) {
-        $cancion = $canciones[$songId];
+    <?php
+    // Al cargar la página para editar
+    if (isset($_GET['id'])) {
+        $json_file = '../json/json.json';
+        $canciones = file_exists($json_file) ? json_decode(file_get_contents($json_file), true) : array();
+        $songId = $_GET['id'];
+
+        if (isset($canciones[$songId])) {
+            $cancion = $canciones[$songId];
+        } else {
+            echo "Error: La canción no existe.";
+            exit();
+        }
     } else {
-        echo "Error: La canción no existe.";
+        echo "Error: ID de la canción no especificado.";
         exit();
     }
-} else {
-    echo "Error: ID de la canción no especificado.";
-    exit();
-}
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="es">

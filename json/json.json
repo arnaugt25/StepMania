@@ -1,20 +1,20 @@
 [
     {
-        "id": 1,
-        "titulo": "awdwad",
-        "artista": "adad",
+        "id": 2,
+        "titulo": "lknjhgfdsadzgfxlkm",
+        "artista": "\u00f1lkmjhniuvgctyrsewarsdftyhuoijk",
         "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_67001e7fb0776.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_67001e7fb0e79.png",
-        "archivoTexto": null
+        "archivoMusica": "..\/uploads\/musica\/musica_670e7a3e18907.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/coldplay.png",
+        "archivoTexto": "..\/uploads\/text\/text_670e7a3e18d68.txt"
     },
     {
-        "id": 2,
-        "titulo": "adad",
-        "artista": "adad",
+        "id": 3,
+        "titulo": "SONG1",
+        "artista": "ARTIST 1",
         "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_67054bf62f22c.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_67054bf62f47b.png",
-        "archivoTexto": null
+        "archivoMusica": "..\/uploads\/musica\/musica_670e7f24923925.89568797.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_670e7e1d9f54a.png",
+        "archivoTexto": "..\/uploads\/text\/text_670e7e1d9f6e2.txt"
     }
 ]
