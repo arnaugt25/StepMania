@@ -1,7 +1,11 @@
-// Obtener el nombre del usuario y la canción seleccionada desde localStorage
+// Variables para el cálculo de aciertos y errores
+let correctHits = 0;  // Aciertos
+let totalMoves = 0;   // Total de movimientos posibles (flechas)
+let errors = 0;       // Errores
+
+// Seleccionar los elementos HTML
 const selectedSongId = localStorage.getItem('selectedSongId');
 const selectedSong = decodeURIComponent(localStorage.getItem('selectedSong'));
-// Seleccionar los elementos HTML
 const audioElement = document.getElementById('game-music');
 const playButton = document.getElementById('play-music');
 const scoreElement = document.getElementById('score');
@@ -12,6 +16,7 @@ let gameActive = false; // Control del estado del juego
 
 if (selectedSong && selectedSongId) {
     audioElement.src = selectedSong;
+
     function startGame() {
         gameActive = true; // Marcar que el juego está activo
 
@@ -37,6 +42,7 @@ if (selectedSong && selectedSongId) {
                 if (song && song.archivoTexto) {
                     // Si el archivo de flechas existe, cargarlo
                     loadArrowsFromFile(song.archivoTexto).then(arrows => {
+                        totalMoves = arrows.length; // Asignar el total de movimientos
                         if (arrows.length > 0) {
                             scheduleArrows(arrows); // Generar flechas que caen según el archivo
                         } else {
@@ -205,15 +211,38 @@ function detectKeyPress() {
         const arrow = document.querySelector(`#${targetColumn} .arrow`);
         if (arrow) {
             arrow.remove(); // Eliminar la flecha si es correcta
-            updateScore(10); // Añadir puntos
+            updateScore(100, true); // Acierto
+        } else {
+            updateScore(-50, false); // Error
         }
     });
 }
 
-// Función para actualizar la puntuación
-function updateScore(points) {
+// Función para actualizar la puntuación y porcentaje
+function updateScore(points, isCorrect) {
     score += points;
-    scoreElement.textContent = score;
+    if (isCorrect) {
+        correctHits++;
+    } else {
+        errors++;
+    }
+    scoreElement.textContent = `Score: ${score} | ${getAccuracyPercentage()}% (${getRank()})`;
+}
+
+// Función para obtener el porcentaje de aciertos
+function getAccuracyPercentage() {
+    if (totalMoves === 0) return 0;
+    return Math.round((correctHits / totalMoves) * 100);
+}
+
+// Función para obtener la letra de rango
+function getRank() {
+    const accuracy = getAccuracyPercentage();
+    if (accuracy >= 90) return 'A';
+    if (accuracy >= 70) return 'B';
+    if (accuracy >= 50) return 'C';
+    if (accuracy >= 25) return 'D';
+    return 'E';
 }
 
 // Función para terminar el juego cuando la música se acaba
@@ -222,6 +251,10 @@ function endGame() {
 
     // Eliminar todas las flechas que queden en pantalla
     document.querySelectorAll('.arrow').forEach(arrow => arrow.remove());
+
+    // Mostrar la puntuación final con el porcentaje y la letra de rango
+    const finalScore = `Final Score: ${score} | Accuracy: ${getAccuracyPercentage()}% (${getRank()})`;
+    alert(finalScore); // Puedes personalizar cómo mostrar este mensaje final
 
     // Obtener el nombre del usuario desde localStorage
     const userName = localStorage.getItem('userName');
@@ -268,3 +301,46 @@ function updateSongProgress() {
         }
     });
 }
+
+
+    // Obtener los datos de PHP pasados en la URL y guardarlos en localStorage si no están ya definidos
+    if (!localStorage.getItem('selectedSongId')) {
+        const selectedSongId = '<?php echo $songId; ?>';
+        const selectedSong = decodeURIComponent('<?php echo $songUrl; ?>');
+        
+        // Guardar los valores en localStorage para usarlos en game.js
+        localStorage.setItem('selectedSongId', selectedSongId);
+        localStorage.setItem('selectedSong', selectedSong);
+    }
+
+    // Función para mostrar el modal
+    function showModal() {
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    // Función para mostrar el juego después de cerrar el modal
+    function showGame() {
+        document.querySelector('.game-container').style.display = 'block';
+        document.getElementById('play-music').style.display = 'block';
+        document.querySelector('.song-progress-container').style.display = 'block';
+        document.querySelector('.score').style.display = 'block';
+    }
+
+    // Mostrar el modal al cargar la página
+    document.addEventListener('DOMContentLoaded', function () {
+        showModal();
+    });
+
+    // Manejar el envío del formulario
+    document.getElementById('nameForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const userName = document.getElementById('nameInput').value;
+
+        if (userName === '') {
+            document.getElementById('error').style.display = 'block';
+        } else {
+            document.getElementById('myModal').style.display = 'none';
+            localStorage.setItem('userName', userName);
+            showGame();  // Mostrar el juego después de introducir el nombre
+        }
+    });

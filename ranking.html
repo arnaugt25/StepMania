@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranking</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Agregar Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bodyranking">
@@ -23,73 +22,11 @@
                 </tr>
             </thead>
             <tbody id="rankingBody">
-                <!-- El ranking se cargará aquí -->
             </tbody>
         </table>
     </div>
 
-    <script>
-        // Función para cargar el ranking desde el archivo JSON
-        async function loadRanking() {
-            try {
-                const response = await fetch('json/ranking.json'); // Ruta al archivo JSON
-                if (!response.ok) {
-                    throw new Error('Error al cargar el archivo JSON');
-                }
-
-                const ranking = await response.json();
-                const rankingBody = document.getElementById('rankingBody');
-
-                // Ordenar los jugadores por puntuación de mayor a menor
-                ranking.sort((a, b) => b.score - a.score);
-
-                // Obtener los parámetros de la URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentPlayer = urlParams.get('userName');
-                const currentScore = parseInt(urlParams.get('score'));
-
-                // Mostrar el ranking en la tabla
-                ranking.forEach((player, index) => {
-                    const row = document.createElement('tr');
-                    
-                    // Si es el top 1, mostrar solo el ícono de trofeo en la columna de ranking
-                    let rankingText;
-                    if (index === 0) {
-                        rankingText = `<i class="fa-solid fa-trophy" style="color: gold;"></i>`; // Solo el trofeo dorado
-                    } else {
-                        rankingText = index + 1; // Mostrar el número de ranking para otros jugadores
-                    }
-
-                    row.innerHTML = `
-                        <td>${rankingText}</td>
-                        <td>${player.name}</td>
-                        <td>${player.score}</td>
-                    `;
-
-                    // Resaltar la fila del jugador actual
-                    if (player.name === currentPlayer && player.score === currentScore) {
-                        row.style.backgroundColor = 'yellow'; // Resaltar el fondo
-                        row.style.fontWeight = 'bold'; // Negrita
-                    }
-
-                    rankingBody.appendChild(row);
-                });
-
-                // Si no hay jugadores en el ranking
-                if (ranking.length === 0) {
-                    const noPlayersRow = document.createElement('tr');
-                    noPlayersRow.innerHTML = `<td colspan="3">No hay jugadores en el ranking</td>`;
-                    rankingBody.appendChild(noPlayersRow);
-                }
-
-            } catch (error) {
-                console.error('Error al cargar el ranking:', error);
-            }
-        }
-
-        // Cargar el ranking cuando la página esté lista
-        document.addEventListener('DOMContentLoaded', loadRanking);
-    </script>
+    <script src="js/ranking.js"></script>
     
 </body>
 </html>

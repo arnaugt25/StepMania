@@ -78,7 +78,7 @@ fetch('../json/json.json')
             // Crear el contenedor principal con la clase adecuada
             const songItem = document.createElement('div');
             songItem.classList.add('play-song-item');  // Aplicar la clase CSS
-            songItem.setAttribute('data-url', 'game.php'); // Añadir el enlace de juego
+            songItem.setAttribute('data-url', 'php/game.php'); // Añadir el enlace de juego
             songItem.setAttribute('data-id', cancion.id); // Asignar el ID de la canción
 
             // Añadir la imagen de la carátula con la clase adecuada
