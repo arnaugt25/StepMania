@@ -1,6 +1,7 @@
 async function loadRanking() {
     try {
-        const response = await fetch('json/ranking.json');
+        // Deshabilitar el almacenamiento en caché con { cache: 'no-store' }
+        const response = await fetch('json/ranking.json', { cache: 'no-store' });
         if (!response.ok) {
             throw new Error('Error al cargar el archivo JSON');
         }
@@ -56,5 +57,3 @@ async function loadRanking() {
 }
 
 document.addEventListener('DOMContentLoaded', loadRanking);
-
-

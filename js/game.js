@@ -32,8 +32,8 @@ if (selectedSong && selectedSongId) {
         icon.classList.remove('fa-play');
         icon.classList.add('fa-pause');
 
-        // Cargar los datos de la canción desde json.json
-        fetch('../json/json.json')
+        // Cargar los datos de la canción desde json.json con cache deshabilitada
+        fetch('../json/json.json', { cache: 'no-store' })  // Deshabilitar el almacenamiento en caché
             .then(response => response.json())
             .then(songs => {
                 // Buscar la canción por ID
@@ -74,9 +74,9 @@ if (selectedSong && selectedSongId) {
     console.error("No se ha seleccionado ninguna canción.");
 }
 
-// Función para cargar el archivo de flechas desde el archivo de texto
+// Función para cargar el archivo de flechas desde el archivo de texto con cache deshabilitada
 function loadArrowsFromFile(filePath) {
-    return fetch(filePath)
+    return fetch(filePath, { cache: 'no-store' })  // Deshabilitar el almacenamiento en caché
         .then(response => response.text()) // Cambiado a text() porque es un archivo de texto
         .then(text => {
             const arrows = parseArrowText(text); // Parsear el archivo de texto
@@ -275,6 +275,7 @@ function saveRanking(userName, score) {
         headers: {
             'Content-Type': 'application/json'
         },
+        cache: 'no-store',  // Deshabilitar el almacenamiento en caché
         body: JSON.stringify(data)
     })
     .then(response => response.json())
@@ -305,45 +306,44 @@ function updateSongProgress() {
     });
 }
 
+// Obtener los datos de PHP pasados en la URL y guardarlos en localStorage si no están ya definidos
+if (!localStorage.getItem('selectedSongId')) {
+    const selectedSongId = '<?php echo $songId; ?>';
+    const selectedSong = decodeURIComponent('<?php echo $songUrl; ?>');
+    
+    // Guardar los valores en localStorage para usarlos en game.js
+    localStorage.setItem('selectedSongId', selectedSongId);
+    localStorage.setItem('selectedSong', selectedSong);
+}
 
-    // Obtener los datos de PHP pasados en la URL y guardarlos en localStorage si no están ya definidos
-    if (!localStorage.getItem('selectedSongId')) {
-        const selectedSongId = '<?php echo $songId; ?>';
-        const selectedSong = decodeURIComponent('<?php echo $songUrl; ?>');
-        
-        // Guardar los valores en localStorage para usarlos en game.js
-        localStorage.setItem('selectedSongId', selectedSongId);
-        localStorage.setItem('selectedSong', selectedSong);
+// Función para mostrar el modal
+function showModal() {
+    document.getElementById('myModal').style.display = 'block';
+}
+
+// Función para mostrar el juego después de cerrar el modal
+function showGame() {
+    document.querySelector('.game-container').style.display = 'block';
+    document.getElementById('play-music').style.display = 'block';
+    document.querySelector('.song-progress-container').style.display = 'block';
+    document.querySelector('.score').style.display = 'block';
+}
+
+// Mostrar el modal al cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    showModal();
+});
+
+// Manejar el envío del formulario
+document.getElementById('nameForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const userName = document.getElementById('nameInput').value;
+
+    if (userName === '') {
+        document.getElementById('error').style.display = 'block';
+    } else {
+        document.getElementById('myModal').style.display = 'none';
+        localStorage.setItem('userName', userName);
+        showGame();  // Mostrar el juego después de introducir el nombre
     }
-
-    // Función para mostrar el modal
-    function showModal() {
-        document.getElementById('myModal').style.display = 'block';
-    }
-
-    // Función para mostrar el juego después de cerrar el modal
-    function showGame() {
-        document.querySelector('.game-container').style.display = 'block';
-        document.getElementById('play-music').style.display = 'block';
-        document.querySelector('.song-progress-container').style.display = 'block';
-        document.querySelector('.score').style.display = 'block';
-    }
-
-    // Mostrar el modal al cargar la página
-    document.addEventListener('DOMContentLoaded', function () {
-        showModal();
-    });
-
-    // Manejar el envío del formulario
-    document.getElementById('nameForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const userName = document.getElementById('nameInput').value;
-
-        if (userName === '') {
-            document.getElementById('error').style.display = 'block';
-        } else {
-            document.getElementById('myModal').style.display = 'none';
-            localStorage.setItem('userName', userName);
-            showGame();  // Mostrar el juego después de introducir el nombre
-        }
-    });
+});

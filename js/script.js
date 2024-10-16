@@ -22,8 +22,6 @@ function validarFormulario() {
 
     // Si solo se ha llenado el textarea, puedes agregar más validaciones del contenido aquí
     if (contenidoJuego) {
-        // Validación personalizada del contenido del juego (e.g., formato de instantes, valores no negativos, etc.)
-        // Aquí deberías agregar validaciones según las reglas del juego
         if (!validarContenidoJuego(contenidoJuego)) {
             mensaje.innerHTML = '<p style="color: red;">Error: El format del joc no és correcte.</p>';
             return false;
@@ -36,16 +34,11 @@ function validarFormulario() {
 // Función para validar el contenido del juego en el textarea
 function validarContenidoJuego(contenido) {
     // Aquí puedes implementar la lógica para validar que el contenido cumpla con tus reglas
-    // (e.g., verificar instantes inicial y final, número de elementos, valores no negativos, etc.)
     return true; // De momento, devuelve true para no bloquear el formulario
 }
 
-const caratula = document.createElement('img');
-caratula.src = cancion.archivoCaratula;  // Aquí ocurre el error
-caratula.alt = `Carátula de ${cancion.titulo}`;
-caratula.classList.add('song-img');  // Aplicar la clase CSS
-
-fetch('../json/json.json')
+// Cargar las canciones desde JSON y actualizar el formulario de selección
+fetch('../json/json.json', { cache: 'no-store' }) // Deshabilitar caché
     .then(response => response.json())
     .then(data => {
         const selectSong = document.getElementById('selectSong');
@@ -64,7 +57,7 @@ function loadSongData() {
     const selectedIndex = selectSong.value;
     if (selectedIndex === "") return;
 
-    fetch('../json/json.json')
+    fetch('../json/json.json', { cache: 'no-store' }) // Deshabilitar caché
         .then(response => response.json())
         .then(data => {
             const cancion = data[selectedIndex];
@@ -79,7 +72,6 @@ function loadSongData() {
         .catch(error => console.error('Error al cargar los datos de la canción:', error));
 }
 
-
 // Obtener el parámetro 'song' de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const songIndex = urlParams.get('song');
@@ -90,7 +82,7 @@ if (songIndex !== null) {
 
 // Cargar los datos de la canción seleccionada en el formulario
 function loadSongData(index) {
-    fetch('../json/json.json')
+    fetch('../json/json.json', { cache: 'no-store' }) // Deshabilitar caché
         .then(response => response.json())
         .then(data => {
             const cancion = data[index];
@@ -109,23 +101,23 @@ function loadSongData(index) {
         .catch(error => console.error('Error al cargar los datos de la canción:', error));
 }
 
-        // Actualizar el texto cuando se selecciona un nuevo archivo de música
-        document.getElementById('musica').addEventListener('change', function() {
-            const selectedFile = this.files[0];
-            const displaySpan = document.getElementById('current-music');
-            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
-        });
+// Actualizar el texto cuando se selecciona un nuevo archivo de música
+document.getElementById('musica').addEventListener('change', function() {
+    const selectedFile = this.files[0];
+    const displaySpan = document.getElementById('current-music');
+    displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+});
 
-        // Actualizar el texto cuando se selecciona una nueva carátula
-        document.getElementById('caratula').addEventListener('change', function() {
-            const selectedFile = this.files[0];
-            const displaySpan = document.getElementById('current-caratula');
-            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
-        });
+// Actualizar el texto cuando se selecciona una nueva carátula
+document.getElementById('caratula').addEventListener('change', function() {
+    const selectedFile = this.files[0];
+    const displaySpan = document.getElementById('current-caratula');
+    displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+});
 
-        // Actualizar el texto cuando se selecciona un nuevo archivo de texto
-        document.getElementById('textFile').addEventListener('change', function() {
-            const selectedFile = this.files[0];
-            const displaySpan = document.getElementById('current-text');
-            displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
-        });
+// Actualizar el texto cuando se selecciona un nuevo archivo de texto
+document.getElementById('textFile').addEventListener('change', function() {
+    const selectedFile = this.files[0];
+    const displaySpan = document.getElementById('current-text');
+    displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';
+});

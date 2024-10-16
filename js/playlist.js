@@ -30,30 +30,30 @@ document.querySelectorAll('.play-song-item').forEach(item => {
     const songUrl = item.getAttribute('data-song'); // Obtener la URL de la canción
     const songId = item.getAttribute('data-id'); // Obtener el ID de la canción
 
-    /// Este código ya estaba en tu archivo para manejar las canciones correctamente.
-playButton.addEventListener('click', (event) => {
-    event.stopPropagation(); // Evitar que el clic en el botón se propague
-    togglePlay(audioElement, playButton);
+    // Este código ya estaba en tu archivo para manejar las canciones correctamente.
+    playButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Evitar que el clic en el botón se propague
+        togglePlay(audioElement, playButton);
 
-    // Guardar la URL de la canción y el ID en localStorage (usando encodeURIComponent)
-    localStorage.setItem('selectedSong', encodeURIComponent(cancion.archivoMusica));
-    localStorage.setItem('selectedSongId', cancion.id); // Guardar el ID de la canción
-});
+        // Guardar la URL de la canción y el ID en localStorage (usando encodeURIComponent)
+        localStorage.setItem('selectedSong', encodeURIComponent(songUrl));
+        localStorage.setItem('selectedSongId', songId); // Guardar el ID de la canción
+    });
 
-item.addEventListener('click', (event) => {
-    if (!event.target.closest('.play-button')) { // Evitar redirigir cuando se haga clic en el botón de reproducción
-        const songId = item.getAttribute('data-id');
-        const songUrl = encodeURIComponent(item.querySelector('.song-audio').src); // Codificar la URL de la canción
-        window.location.href = `${item.getAttribute('data-url')}?songId=${songId}&songUrl=${songUrl}`;
-    }
-});
-
+    item.addEventListener('click', (event) => {
+        if (!event.target.closest('.play-button')) { // Evitar redirigir cuando se haga clic en el botón de reproducción
+            const songId = item.getAttribute('data-id');
+            const songUrl = encodeURIComponent(item.querySelector('.song-audio').src); // Codificar la URL de la canción
+            window.location.href = `${item.getAttribute('data-url')}?songId=${songId}&songUrl=${songUrl}`;
+        }
+    });
 });
 
 // Función para eliminar una canción
 function eliminarCancion(index) {
     fetch(`php/eliminar.php?index=${index}`, {
         method: 'GET',
+        cache: 'no-store'  // Deshabilitar la caché
     })
     .then(response => response.text())
     .then(data => {
@@ -69,7 +69,7 @@ function editarCancion(cancion, index) {
 }
 
 // Leer el archivo JSON y mostrar las canciones
-fetch('../json/json.json')
+fetch('../json/json.json', { cache: 'no-store' })  // Deshabilitar la caché
     .then(response => response.json())
     .then(data => {
         const songList = document.getElementById('play-song-list');
@@ -160,7 +160,6 @@ fetch('../json/json.json')
                 togglePlay(audioElement, playButton);
 
                 // Guardar la URL de la canción y el ID en localStorage (usando encodeURIComponent)
-                // Guardar la URL de la canción correctamente codificada
                 localStorage.setItem('selectedSong', encodeURIComponent(cancion.archivoMusica));
                 localStorage.setItem('selectedSongId', cancion.id); // Guardar el ID de la canción
             });
