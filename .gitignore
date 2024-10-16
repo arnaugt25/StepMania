@@ -1,5 +1,0 @@
-# Ignorar la carpeta uploads y su contenido
-/uploads/
-
-# Ignorar todos los archivos JSON
-/json/
