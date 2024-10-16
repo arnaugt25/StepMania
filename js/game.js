@@ -261,13 +261,16 @@ function endGame() {
 
     // Llamar a la función para guardar el ranking
     saveRanking(userName, score);
+
+    // Redirigir al ranking después de que el juego termine
+    window.location.href = `../ranking.html?userName=${encodeURIComponent(userName)}&score=${score}`;
 }
 
 // Función para guardar el ranking
 function saveRanking(userName, score) {
     const data = { name: userName, score: score };
 
-    fetch('php/save_ranking.php', { // Asegúrate de que la ruta sea correcta
+    fetch('../php/save_ranking.php', { // Asegúrate de que la ruta sea correcta
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -279,7 +282,7 @@ function saveRanking(userName, score) {
         console.log('Respuesta del servidor:', result);
         if (result.status === 'success') {
             // Redirigir al ranking después de guardar
-            window.location.href = `ranking.html?userName=${encodeURIComponent(userName)}&score=${score}`;
+            window.location.href = `../ranking.html?userName=${encodeURIComponent(userName)}&score=${score}`;
         } else {
             console.error('Error al guardar el ranking:', result.message);
         }

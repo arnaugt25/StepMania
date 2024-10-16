@@ -1,20 +1,11 @@
 [
     {
-        "id": 3,
-        "titulo": "SONG1",
-        "artista": "ARTIST 1",
-        "descripcion": "",
-        "archivoMusica": "..\/uploads\/musica\/musica_670e7f24923925.89568797.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_670e7e1d9f54a.png",
-        "archivoTexto": "..\/uploads\/text\/text_670e7e1d9f6e2.txt"
-    },
-    {
-        "id": 3,
-        "titulo": "adadad",
-        "artista": "dadadad",
+        "id": 1,
+        "titulo": "armau",
+        "artista": "arara",
         "descripcion": null,
-        "archivoMusica": "..\/uploads\/musica\/musica_670e7f8118fac.mp3",
-        "archivoCaratula": "..\/uploads\/caratula\/caratula_670e7f8119589.png",
-        "archivoTexto": "..\/uploads\/text\/text_670e7f8119b4b.txt"
+        "archivoMusica": "..\/uploads\/musica\/musica_670fca85aa053.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_670fca85aa2b0.png",
+        "archivoTexto": "..\/uploads\/text\/text_670fca85aa495.txt"
     }
 ]
