@@ -38,9 +38,7 @@ function loadTopRanking() {
             // Si no hay jugadores en el ranking, mostrar un mensaje de "No hay jugadores en el ranking"
             if (topRanking.length === 0) {
                 const emptyRow = document.createElement('tr');  // Crear una fila vacía
-                emptyRow.innerHTML = `
-                    <td colspan="3">No hay jugadores en el ranking</td>  // Colocar el mensaje en toda la fila
-                `;
+                emptyRow.innerHTML = `<td colspan="3">No Players in the ranking</td>`  ;// Colocar el mensaje en toda la fila   
                 leaderboardBody.appendChild(emptyRow);  // Añadir la fila a la tabla
             }
         })

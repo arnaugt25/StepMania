@@ -1,2 +1,20 @@
 [
+    {
+        "id": 1,
+        "titulo": "Song 1",
+        "artista": "artist 1",
+        "descripcion": null,
+        "archivoMusica": "..\/uploads\/musica\/musica_671139f947bab.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_671139f947f6d.png",
+        "archivoTexto": "..\/uploads\/text\/text_671139f9482ba.txt"
+    },
+    {
+        "id": 2,
+        "titulo": "Song 2",
+        "artista": "Artista 2",
+        "descripcion": null,
+        "archivoMusica": "..\/uploads\/musica\/musica_6711426dc7ada.mp3",
+        "archivoCaratula": "..\/uploads\/caratula\/caratula_6711426dc7da3.png",
+        "archivoTexto": "..\/uploads\/text\/text_6711426dc80e2.txt"
+    }
 ]

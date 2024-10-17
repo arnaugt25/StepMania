@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- Meta para asegurar la adaptabilidad en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StepMania - Juego</title>
+    <title>StepMania - Game</title>
     <!-- Enlace al archivo de estilos CSS principal -->
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Enlace a FontAwesome para los iconos -->
@@ -49,7 +49,7 @@ if ($songId && $songUrl) {
 
     <!-- Contenedor para mostrar el nombre del juego -->
     <div class="nombre">
-        <h1>StepMania - Juego</h1>
+        <h1>StepMania - Game</h1>
     </div>
 
     <!-- Botón para reproducir la música del juego -->

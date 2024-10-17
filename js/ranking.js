@@ -59,7 +59,7 @@ async function loadRanking() {
         // Si no hay jugadores en el ranking, mostrar un mensaje
         if (ranking.length === 0) {
             const noPlayersRow = document.createElement('tr');  // Crear una fila vacía
-            noPlayersRow.innerHTML = `<td colspan="3">No hay jugadores en el ranking</td>`;  // Mensaje para la fila vacía
+            noPlayersRow.innerHTML = `<td colspan="3">No Players in the ranking</td>`;  // Mensaje para la fila vacía
             rankingBody.appendChild(noPlayersRow);  // Añadir la fila vacía a la tabla
         }
 
