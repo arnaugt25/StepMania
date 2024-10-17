@@ -1,74 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Meta para definir la codificación de caracteres -->
     <meta charset="UTF-8">
+    <!-- Meta para asegurar la adaptabilidad en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Música</title>
+    <!-- Enlace al archivo CSS principal -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
+    <!-- Enlace a la librería FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bodyplay">
+    <!-- Barra de navegación con el logo y el título de la lista de canciones -->
     <nav class="nav1">
+        <!-- Enlace a la página principal con el logo de la aplicación -->
         <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
         <div class="titulolista"><h2>PlayList</h2></div>
     </nav>
 
-
-<!-- Contenedor exclusivo para la playlist -->
-<div id="playlist-container">
-    <section id="play-song-list">
-        <!-- Ejemplo de canción 1 -->
-        <div class="play-song-item" data-url="php/game.php" data-song="/uploads/Viva la Vida - Coldplay.mp3">
-            <img src="uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
-            <div class="play-song-info">
-                <h2>Viva la vida</h2>
-                <p>by Coldplay</p>
-                <p class="mapper">Created by <strong>Arnau</strong></p>
-                <div class="status">
-                    <span class="status-label">RANKED</span>
-                    <span class="status-label">ORIGINAL</span>
-                    <div class="difficulty">
-                        <span class="circle" style="background-color: red;"></span>
-                        <span class="circle" style="background-color: yellow;"></span>
-                        <span class="circle" style="background-color: green;"></span>
+    <!-- Contenedor principal de la playlist -->
+    <div id="playlist-container">
+        <!-- Sección para mostrar las canciones disponibles -->
+        <section id="play-song-list">
+            <!-- Primer ejemplo de canción en la lista -->
+            <div class="play-song-item" data-url="php/game.php" data-song="/uploads/Viva la Vida - Coldplay.mp3">
+                <!-- Imagen de la canción -->
+                <img src="uploads/coldplay.png" alt="Imagen de la canción 1" class="song-img">
+                <div class="play-song-info">
+                    <!-- Título y artista de la canción -->
+                    <h2>Viva la vida</h2>
+                    <p>by Coldplay</p>
+                    <p class="mapper">Created by <strong>Arnau</strong></p>
+                    <!-- Estado de la canción (ranked y original) -->
+                    <div class="status">
+                        <span class="status-label">RANKED</span>
+                        <span class="status-label">ORIGINAL</span>
+                        <!-- Indicadores de dificultad con círculos de colores -->
+                        <div class="difficulty">
+                            <span class="circle" style="background-color: red;"></span>
+                            <span class="circle" style="background-color: yellow;"></span>
+                            <span class="circle" style="background-color: green;"></span>
+                        </div>
                     </div>
                 </div>
+                <!-- Botón de reproducción -->
+                <div class="buttons-container">
+                    <button class="play-button">
+                        <i class="fas fa-play"></i> <!-- Icono de reproducción -->
+                    </button>
+                </div>
+                <!-- Reproductor de audio oculto para la canción -->
+                <audio class="song-audio" src="/uploads/vivalavidacoldplay.mp3"></audio>
             </div>
-            <div class="buttons-container">
-                <button class="play-button">
-                    <i class="fas fa-play"></i> <!-- Icono de reproducción -->
-                </button>
-            </div>
-            <audio class="song-audio" src="/uploads/vivalavidacoldplay.mp3"></audio>
-        </div>
 
-        <!-- Ejemplo de canción 2 -->
-        <div class="play-song-item" data-url="php/game.php" data-song="/uploads/Eminem - The Real Slim Shady.mp3">
-            <img src="uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
-            <div class="play-song-info">
-                <h2>The Real Slim Shady</h2>
-                <p>by Eminem</p>
-                <p class="mapper">Created by <strong>Arnau</strong></p>
-                <div class="status">
-                    <span class="status-label">RANKED</span>
-                    <span class="status-label">ORIGINAL</span>
-                    <div class="difficulty">
-                        <span class="circle" style="background-color: red;"></span>
-                        <span class="circle" style="background-color: yellow;"></span>
-                        <span class="circle" style="background-color: green;"></span>
+            <!-- Segundo ejemplo de canción en la lista -->
+            <div class="play-song-item" data-url="php/game.php" data-song="/uploads/Eminem - The Real Slim Shady.mp3">
+                <!-- Imagen de la canción -->
+                <img src="uploads/realslimshady.png" alt="Imagen de la canción 2" class="song-img">
+                <div class="play-song-info">
+                    <!-- Título y artista de la canción -->
+                    <h2>The Real Slim Shady</h2>
+                    <p>by Eminem</p>
+                    <p class="mapper">Created by <strong>Arnau</strong></p>
+                    <!-- Estado de la canción (ranked y original) -->
+                    <div class="status">
+                        <span class="status-label">RANKED</span>
+                        <span class="status-label">ORIGINAL</span>
+                        <!-- Indicadores de dificultad con círculos de colores -->
+                        <div class="difficulty">
+                            <span class="circle" style="background-color: red;"></span>
+                            <span class="circle" style="background-color: yellow;"></span>
+                            <span class="circle" style="background-color: green;"></span>
+                        </div>
                     </div>
                 </div>
+                <!-- Botón de reproducción -->
+                <div class="buttons-container">
+                    <button class="play-button">
+                        <i class="fas fa-play"></i> <!-- Icono de reproducción -->
+                    </button>
+                </div>
+                <!-- Reproductor de audio oculto para la canción -->
+                <audio class="song-audio" src="/uploads/eminemtherealslimshady.mp3"></audio>
             </div>
-            <div class="buttons-container">
-                <button class="play-button">
-                    <i class="fas fa-play"></i> <!-- Icono de reproducción -->
-                </button>
-            </div>
-            <audio class="song-audio" src="/uploads/eminemtherealslimshady.mp3"></audio>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
+    <!-- Enlace al archivo JavaScript que gestiona la playlist -->
     <script src="js/playlist.js"></script>
 </body>
 </html>

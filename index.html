@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Configuración del conjunto de caracteres y visualización adaptativa -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stepmania</title>
+    
+    <!-- Enlace a la hoja de estilos local -->
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js" defer></script> <!-- Asegúrate de que el script se cargue después del DOM -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
+    <!-- Carga el archivo JavaScript después del DOM para evitar errores de carga -->
+    <script src="js/script.js" defer></script>
+    <!-- Enlace a la biblioteca de iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body class="bodymain">
     <header>
+        <!-- Barra de navegación con el título y el logo de la aplicación -->
         <nav class="navplay">
             <ul>
                 <li class="tituloprincipal">StepMania</li>
@@ -19,12 +25,14 @@
         </nav>
     </header>
 
+    <!-- Contenedor central con botones para las principales secciones de la aplicación -->
     <div class="center-container">
         <button onclick="window.location.href='playlist.html'">Play</button>
         <button onclick="window.location.href='afegir.html'">Add Songs</button>
         <button onclick="window.location.href='ranking.html'">Ranking</button>
     </div>
 
+    <!-- Sección del ranking con una tabla dinámica que muestra los jugadores -->
     <div class="leaderboard">
         <h2>Ranking</h2>
         <table id="leaderboardTable">
@@ -36,15 +44,17 @@
                 </tr>
             </thead>
             <tbody id="leaderboardBody">
-                <!-- Las filas se generarán dinámicamente aquí -->
+                <!-- Aquí se generarán las filas dinámicamente usando JavaScript -->
             </tbody>
         </table>
 
+        <!-- Botón que redirige a la página del ranking completo -->
         <div class="ver-mas-button">
             <button onclick="window.location.href='ranking.html'">More ...</button>
         </div>
     </div>
 
+    <!-- Enlace al archivo JavaScript que gestiona la lógica del ranking -->
     <script src="js/ranking2.js"></script>
 </body>
 </html>

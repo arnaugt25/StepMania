@@ -1,64 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Definición del conjunto de caracteres y ajuste de la visualización para adaptarse a dispositivos móviles -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afegir una cançó</title>
+    
+    <!-- Enlace a la hoja de estilos local -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Enlace a FontAwesome -->
+    <!-- Enlace a la biblioteca de iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 <body class="bodyafegir">
+    <!-- Menú de navegación, actualmente vacío pero se puede rellenar con enlaces o contenido en el futuro -->
     <nav class="nav2">
         
     </nav>
+
     <div class="form-container">
-        <!-- Contenedor para alinear logo y título -->
+        <!-- Contenedor para el logo y el título, ambos enlazados a la página principal -->
         <div class="logo-title-container">
             <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo1"></a>
             <a href="index.html"><h1>Add song</h1></a>
         </div>
 
+        <!-- Formulario para añadir una nueva canción -->
         <form id="addSongForm" action="php/playlist.php" method="post" enctype="multipart/form-data">
-            <!-- Título de la canción --> 
+            <!-- Campo para el título de la canción -->
             <label for="titulo">Song title:</label>
             <input type="text" id="titulo" name="titulo" required>
             
-            <!-- Artista -->
+            <!-- Campo para el nombre del artista -->
             <label for="artista">Artist:</label>
             <input type="text" id="artista" name="artista" required>
+
             <div class="file-input-container">
-                <!-- Campo de selección de música -->
+                <!-- Contenedor para la selección del archivo de música -->
                 <div class="file-upload">
                     <label for="musica" class="custom-file-label">Select music  <i class="fa-solid fa-music"></i></label>
                     <input type="file" id="musica" name="musica" accept="audio/*" class="file-input" required>
+                    <!-- Muestra el nombre del archivo seleccionado -->
                     <span id="selected-music" class="file-selected">No file</span>
                 </div>
             
-                <!-- Campo de selección de carátula -->
+                <!-- Contenedor para la selección de la imagen de la carátula -->
                 <div class="file-upload">
                     <label for="caratula" class="custom-file-label">Select picture <i class="fa-solid fa-image"></i></label>
                     <input type="file" id="caratula" name="caratula" accept="image/*" class="file-input" required>
+                    <!-- Muestra el nombre del archivo de imagen seleccionado -->
                     <span id="selected-caratula" class="file-selected">No file</span>
                 </div>
             
-                <!-- Campo de selección de archivo de texto -->
+                <!-- Contenedor para la selección del archivo de texto con las flechas del juego -->
                 <div class="file-upload">
                     <label for="textFile" class="custom-file-label">Select TXT <i class="fa-solid fa-file-lines"></i></label>
                     <input type="file" id="textFile" name="textFile" accept="text/plain" class="file-input">
+                    <!-- Muestra el nombre del archivo TXT seleccionado -->
                     <span id="selected-txt" class="file-selected">No file</span>
                 </div>
             </div>
             
-            <!-- Descripción -->
+            <!-- Campo para una descripción opcional de la canción -->
             <label for="descripcion" class="descripcion">Description</label>
             <textarea id="descripcion" name="descripcion" placeholder="Description here..."></textarea>
 
-            <!-- Botón de submit -->
+            <!-- Botón para enviar el formulario y añadir la canción -->
             <button type="submit">Add Song</button>
         </form>
     </div>
 
+    <!-- Enlace al archivo de JavaScript que maneja la lógica del formulario -->
     <script src="js/afegir.js"></script>
 
 </body>

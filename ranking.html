@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Meta para definir la codificación de caracteres -->
     <meta charset="UTF-8">
+    <!-- Meta para asegurar la adaptabilidad en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranking</title>
+    <!-- Enlace al archivo CSS principal -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Enlace a la librería FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bodyranking">
+    <!-- Barra de navegación con el logo de la aplicación -->
     <nav class="nav3">
         <a href="index.html"><img src="css/img/logo1.png" alt="Logo de StepMania" class="logo"></a>
     </nav>
+
+    <!-- Contenedor principal del ranking -->
     <div class="ranking-container">
+        <!-- Título de la sección de ranking -->
         <h1>Ranking de Jugadores</h1>
+        <!-- Tabla para mostrar el ranking de los jugadores -->
         <table id="rankingTable">
             <thead>
                 <tr>
@@ -22,12 +31,12 @@
                 </tr>
             </thead>
             <tbody id="rankingBody">
+                <!-- El cuerpo de la tabla se llenará dinámicamente desde el archivo JS -->
             </tbody>
         </table>
     </div>
 
-    <!-- Mueve el script aquí -->
+    <!-- Enlace al archivo JavaScript que gestiona el ranking -->
     <script src="js/ranking.js"></script>
-
 </body>
 </html>
