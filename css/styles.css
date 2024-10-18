@@ -244,6 +244,7 @@
     }
 
     .play-song-item {
+        width: 500px;
         position: relative; /* Necesario para que el botón se posicione respecto al contenedor */
         background-color: #3a3a3a;
         display: flex;
