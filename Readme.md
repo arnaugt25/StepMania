@@ -67,7 +67,7 @@ Aquest projecte és una aplicació web inspirada en jocs rítmics com *StepMania
 
 3. Executa el servidor PHP:
     ```bash
-    php -S localhost:8000
+    php -S localhost:8080
     ```
 
 4. Accedeix a l'aplicació des del navegador:
