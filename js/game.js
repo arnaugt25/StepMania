@@ -349,4 +349,4 @@ document.getElementById('nameForm').addEventListener('submit', function (event) 
         localStorage.setItem('userName', userName); // Guardar el nombre del jugador en localStorage
         showGame();  // Mostrar el juego después de introducir el nombre
     }
-});
+}); 

@@ -137,7 +137,7 @@ if (isset($_GET['id'])) {
     <!-- Meta para definir la codificación y viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Canciones</title>
+    <title>Edit Songs</title>
     <!-- Enlace al archivo CSS principal -->
     <link rel="stylesheet" href="../css/styles.css">
 </head>

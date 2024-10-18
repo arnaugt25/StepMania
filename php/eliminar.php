@@ -61,4 +61,4 @@ if (isset($_GET['index'])) {
     // Mensaje si no se proporcionó el índice de la canción
     echo "No se especificó el índice de la canción.";
 }
-?>
+?> 
