@@ -48,4 +48,4 @@ document.getElementById('addSongForm').addEventListener('submit', function(event
         event.preventDefault();  // Evitar el envío del formulario si no se han seleccionado ambos archivos
         alert('Debes seleccionar una canción y una carátula antes de enviar.');  // Mostrar una alerta al usuario
     }
-});
+}); 

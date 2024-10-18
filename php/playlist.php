@@ -89,4 +89,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "No se han enviado los archivos correctamente.";
     }
 }
-?>
+?> 

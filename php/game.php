@@ -82,4 +82,4 @@ if ($songId && $songUrl) {
     <!-- Script que maneja la lógica del juego -->
     <script src="../js/game.js"></script>
 </body>
-</html>
+</html> 

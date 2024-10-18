@@ -122,4 +122,4 @@ document.getElementById('textFile').addEventListener('change', function() {
     const selectedFile = this.files[0];  // Obtener el archivo seleccionado
     const displaySpan = document.getElementById('current-text');  // Elemento para mostrar el nombre del archivo
     displaySpan.textContent = selectedFile ? selectedFile.name : 'No file selected';  // Actualizar el texto del archivo seleccionado
-});
+}); 

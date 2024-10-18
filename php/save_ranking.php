@@ -53,4 +53,4 @@ if (file_put_contents($rankingFile, json_encode($ranking, JSON_PRETTY_PRINT)) ==
 
 // Enviar una respuesta de éxito si todo se realizó correctamente
 echo json_encode(['status' => 'success']);
-?>
+?> 

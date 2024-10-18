@@ -192,4 +192,4 @@ document.addEventListener('click', function(event) {
         const songUrl = encodeURIComponent(item.querySelector('.song-audio').src); // Codificar la URL de la canción
         window.location.href = `${item.getAttribute('data-url')}?songId=${songId}&songUrl=${songUrl}`; // Redirigir a la página de juego
     }
-});
+}); 

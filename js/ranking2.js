@@ -45,5 +45,5 @@ function loadTopRanking() {
         .catch(error => console.error('Error al cargar el ranking:', error));  // Mostrar errores en la consola si los hay
 }
 
-// Llamar a la función para cargar el ranking cuando el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', loadTopRanking);
+// Llamar a la función para cargar el ranking cuando el DOM esté completamente cargado 
+document.addEventListener('DOMContentLoaded', loadTopRanking); 

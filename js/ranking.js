@@ -70,4 +70,4 @@ async function loadRanking() {
 }
 
 // Ejecutar la función loadRanking cuando el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', loadRanking);
+document.addEventListener('DOMContentLoaded', loadRanking); 

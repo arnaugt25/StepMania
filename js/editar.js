@@ -40,4 +40,4 @@ document.getElementById('descripcion').addEventListener('input', function() {
     } else {
         textFileInput.disabled = false;  // Reactivar la selección de archivo si se borra la descripción
     }
-});
+}); 
